@@ -1,35 +1,36 @@
+package br.com.contmatic.empresa;
+
 import java.util.Objects;
 
 public class Pessoa {
     private String nome;
-    private String numeroDoCpf;
+    private String cpf;
     private int idade;
 
     Pessoa(String nome){
         this.nome = nome;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
     public void setIdade(int idade) {
         this.idade = idade;
     }
 
-    public String getNumeroDoCpf() {
-        return this.numeroDoCpf;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public void setNumeroDoCpf(String numeroDoCpf) {
-        CPF cpf = new CPF(numeroDoCpf);
-        this.numeroDoCpf = cpf.getCpf();
+    public String getCpf() {
+        return cpf;
+    }
+
+    public int getIdade() {
+        return idade;
     }
 
     @Override
     public String toString() {
         return  "Nome: " + nome + "\n" +
-                "Cpf: " + numeroDoCpf + "\n" +
+                "Cpf: " + cpf + "\n" +
                 "Idade: " + idade + "\n" +
                 "====================================== \n";
     }
@@ -41,12 +42,12 @@ public class Pessoa {
         Pessoa pessoa = (Pessoa) o;
         return idade == pessoa.idade &&
                 nome.equals(pessoa.nome) &&
-                Objects.equals(numeroDoCpf, pessoa.numeroDoCpf);
+                Objects.equals(cpf, pessoa.cpf);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numeroDoCpf.charAt(0));
+        return Objects.hash(cpf.charAt(0));
     }
 
 }

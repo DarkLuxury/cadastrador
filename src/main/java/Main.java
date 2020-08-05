@@ -1,19 +1,16 @@
-import java.util.Scanner;
+import br.com.contmatic.empresa.Empresa;
 
 public class Main {
     public static void main(String[] args){
-        Cadastrador cadastrador = new Cadastrador();
-        Scanner digite = new Scanner(System.in);
+        Empresa contmatic = new Empresa("58.119.371/0004-10");
+        contmatic.setRazaoSocial("SOFTMATIC SISTEMAS AUTOMATICOS DE INFORMATICA LTDA");
+        contmatic.setEndereco("Rua Padre Estevão Pernet", 215, "São Paulo - SP", "03315-000", "Brasil");
+        contmatic.setTamanho("Medio/Grande");
+        contmatic.setFuncionario("Luiz Henrique", "51187115843", 17);
+        contmatic.setFuncionario("Luiz Henrique", "51187115842", 22);
+        contmatic.setFuncionario("Luiz Henrique", "51187315843", 18);
 
-        String continuar = "s";
-
-        while (continuar.equals("s")){
-            cadastrador.cadastrar();
-            System.out.println("Deseja cadastrar outra pessoa? (s/n)");
-            continuar = digite.next();
-        }
-
-        System.out.println(cadastrador.getPessoas());
+        System.out.println(contmatic);
 
     }
 }
