@@ -1,8 +1,6 @@
 package br.com.contmatic.empresa;
 
-import org.junit.FixMethodOrder;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 
 import static org.hamcrest.Matchers.is;
@@ -10,6 +8,18 @@ import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EmpresaTest {
+
+    @Before
+    public void setUp() throws Exception {
+        Empresa empresa = new Empresa("0000");
+        empresa.setRazaoSocial("test");
+
+        assertThat(empresa.getRazaoSocial(), is("test"));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
 
     @Test
     public void setFuncionario() {
