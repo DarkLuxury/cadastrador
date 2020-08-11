@@ -22,7 +22,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void setFuncionario() {
+    public void assertThatFuncionarioEqualsExpected() {
         Empresa empresa = new Empresa("0000");
         empresa.setFuncionario("Luiz", "65555555555", 17);
 
@@ -32,7 +32,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void setEndereco() {
+    public void assertThatEnderecoEqualsExpected() {
         Empresa empresa = new Empresa("0000");
         empresa.setEndereco("Rua Padre Estevão Pernet", 215, "São Paulo - SP", "03315000",  "Brasil");
 
@@ -41,9 +41,18 @@ public class EmpresaTest {
 
     }
 
+    @Test
+    public void equalsMethodTest(){
+        String cnpj = "1234";
+        Empresa empresa = new Empresa(cnpj);
+        Empresa empresa1 = empresa;
+
+        assertThat(empresa.equals(empresa1), is(true));
+    }
+
     @Ignore ("Teste desnecessário")
     @Test
-    public void setRazaoSocial() {
+    public void assertThatRazaoSocialEqualsExpected() {
         Empresa empresa = new Empresa("0000");
         empresa.setRazaoSocial("test");
 
