@@ -3,57 +3,148 @@ package br.com.contmatic.empresa;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EmpresaTest {
 
-    @Before
-    public void setUp() throws Exception {
-        Empresa empresa = new Empresa("0000");
-        empresa.setRazaoSocial("test");
+    private Endereco endereco;
+    private Empresa empresa;
+    private Pessoa pessoa;
+    private List<Pessoa> funcionarios;
 
-        assertThat(empresa.getRazaoSocial(), is("test"));
+    @Before
+    public void inicializacao() {
+        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
+        empresa = new Empresa("0000", "Teste", "teste", endereco, "teste", 88.5, "privada", false, "primário");
+        pessoa = new Pessoa("teste", "teste", "teste", "teste", "teste", "teste", "teste", 99, endereco);
+        funcionarios = new ArrayList<>();
+        funcionarios.add(pessoa);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void finalizacao() {
+        endereco = null;
+        empresa = null;
+        pessoa = null;
+        funcionarios = null;
     }
 
     @Test
-    public void assertThatFuncionarioEqualsExpected() {
-        Empresa empresa = new Empresa("0000");
-        empresa.setFuncionario("Luiz", "65555555555", 17);
-
-        boolean naoHaFuncionario = empresa.getFuncionario() == null;
-        assertThat(naoHaFuncionario, is(false));
-
-    }
-
-    @Test
-    public void assertThatEnderecoEqualsExpected() {
-        Empresa empresa = new Empresa("0000");
-        empresa.setEndereco("Rua Padre Estevão Pernet", 215, "São Paulo - SP", "03315000",  "Brasil");
-
-        boolean naoHaEndereco = empresa.getEndereco() == null;
-        assertThat(naoHaEndereco, is(false));
-
-    }
-
-    @Test
-    public void equalsMethodTest(){
+    public void deve_retornar_cnpj_esperado() {
         String cnpj = "1234";
-        Empresa empresa = new Empresa(cnpj);
-        Empresa empresa1 = empresa;
+        empresa.setCnpj(cnpj);
+
+        assertThat(cnpj, is(empresa.getCnpj()));
+    }
+
+    @Test
+    public void deve_retornar_razaosocial_esperada() {
+        String razao = "1234";
+        empresa.setRazaoSocial(razao);
+
+        assertThat(razao, is(empresa.getRazaoSocial()));
+    }
+
+    @Test
+    public void deve_retornar_nomefantasia_esperado() {
+        String nomefantasia = "1234";
+        empresa.setNomeFantasia(nomefantasia);
+
+        assertThat(nomefantasia, is(empresa.getNomeFantasia()));
+    }
+
+    @Test
+    public void deve_retornar_tamanho_esperado() {
+        String tamanho = "1234";
+        empresa.setTamanho(tamanho);
+
+        assertThat(tamanho, is(empresa.getTamanho()));
+    }
+
+    @Test
+    public void deve_retornar_endereco_esperado() {
+        Endereco enderecoTeste = endereco;
+        empresa.setEndereco(enderecoTeste);
+
+        assertThat(enderecoTeste, is(empresa.getEndereco()));
+    }
+
+    @Test
+    public void deve_retornar_valuation_esperada() {
+        Double valuation = 1234.0;
+        empresa.setValuation(valuation);
+
+        assertThat(valuation, is(empresa.getValuation()));
+    }
+
+    @Test
+    public void deve_retornar_titularidadecapital_esperada() {
+        String titularidade = "1234";
+        empresa.setTitularidadeCapital(titularidade);
+
+        assertThat(titularidade, is(empresa.getTitularidadeCapital()));
+    }
+
+    @Test
+    public void deve_retornar_capitalaberto_esperado() {
+        Boolean capitalAberto = true;
+        empresa.setCapitalAberto(capitalAberto);
+
+        assertThat(capitalAberto, is(empresa.getCapitalAberto()));
+    }
+
+    @Test
+    public void deve_retornar_setor_esperado() {
+        String setor = "1234";
+        empresa.setSetor(setor);
+
+        assertThat(setor, is(empresa.getSetor()));
+    }
+
+    @Test
+    public void deve_retornar_funcionarios_esperado() {
+        empresa.setFuncionarios(funcionarios);
+
+        assertThat(funcionarios, is(empresa.getFuncionarios()));
+    }
+
+    @Test
+    public void deve_retornar_funcionario_esperado() {
+        Pessoa funcionario = pessoa;
+        empresa.setFuncionario(funcionario);
+
+        assertThat(funcionario, is(empresa.getFuncionario()));
+    }
+
+    @Test
+    public void deve_retornar_verdadeiro_para_o_metodo_equals() {
+        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
 
         assertThat(empresa.equals(empresa1), is(true));
     }
 
+    @Test
+    public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
+        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
+
+        assertThat(empresa.hashCode(), is(empresa1.hashCode()));
+    }
+
+    @Test
+    public void deve_retornar_tostring_diferente_null() {
+        String tostring = empresa.toString();
+        assertNotEquals(tostring, null);
+    }
+
     @Ignore ("Teste desnecessário")
     @Test
-    public void assertThatRazaoSocialEqualsExpected() {
-        Empresa empresa = new Empresa("0000");
+    public void deve_retornar_razaosocial_declarada() {
+
         empresa.setRazaoSocial("test");
 
         assertThat(empresa.getRazaoSocial(), is("test"));
