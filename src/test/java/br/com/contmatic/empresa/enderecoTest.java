@@ -72,6 +72,8 @@ public class EnderecoTest {
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
         Endereco endereco1 = new Endereco("Rua Padre", "215", "Salvador", "BA", "03315-000", "Italia");
         assertThat(endereco.equals(endereco1), is(true));
+        endereco1 = new Endereco("Rua Padre Estevão Pernet", "218", "São Paulo", "SP", "03315-000", "Brasil");
+        assertThat(endereco.equals(endereco1), is(false));
         endereco1 = null;
         assertThat(endereco.equals(endereco1), is(false));
         endereco1 = endereco;
