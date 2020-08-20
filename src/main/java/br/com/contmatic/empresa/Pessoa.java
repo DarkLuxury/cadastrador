@@ -11,7 +11,7 @@ public class Pessoa {
     private String nomeMae;
     private String sexo;
     private int idade;
-    Endereco endereco;
+    private Endereco endereco;
 
     Pessoa (String nome, String cpf, String ufNasc, String cidadeNasc, String nomeMae, String rg, String sexo, int idade, Endereco endereco) {
         this.nome = nome;
