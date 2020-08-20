@@ -38,7 +38,6 @@ public class EmpresaTest {
     public void deve_retornar_cnpj_esperado() {
         String cnpj = "1234";
         empresa.setCnpj(cnpj);
-
         assertThat(cnpj, is(empresa.getCnpj()));
     }
 
@@ -46,7 +45,6 @@ public class EmpresaTest {
     public void deve_retornar_razaosocial_esperada() {
         String razao = "1234";
         empresa.setRazaoSocial(razao);
-
         assertThat(razao, is(empresa.getRazaoSocial()));
     }
 
@@ -54,7 +52,6 @@ public class EmpresaTest {
     public void deve_retornar_nomefantasia_esperado() {
         String nomefantasia = "1234";
         empresa.setNomeFantasia(nomefantasia);
-
         assertThat(nomefantasia, is(empresa.getNomeFantasia()));
     }
 
@@ -62,7 +59,6 @@ public class EmpresaTest {
     public void deve_retornar_tamanho_esperado() {
         String tamanho = "1234";
         empresa.setTamanho(tamanho);
-
         assertThat(tamanho, is(empresa.getTamanho()));
     }
 
@@ -70,7 +66,6 @@ public class EmpresaTest {
     public void deve_retornar_endereco_esperado() {
         Endereco enderecoTeste = endereco;
         empresa.setEndereco(enderecoTeste);
-
         assertThat(enderecoTeste, is(empresa.getEndereco()));
     }
 
@@ -78,7 +73,6 @@ public class EmpresaTest {
     public void deve_retornar_valuation_esperada() {
         Double valuation = 1234.0;
         empresa.setValuation(valuation);
-
         assertThat(valuation, is(empresa.getValuation()));
     }
 
@@ -86,7 +80,6 @@ public class EmpresaTest {
     public void deve_retornar_titularidadecapital_esperada() {
         String titularidade = "1234";
         empresa.setTitularidadeCapital(titularidade);
-
         assertThat(titularidade, is(empresa.getTitularidadeCapital()));
     }
 
@@ -94,7 +87,6 @@ public class EmpresaTest {
     public void deve_retornar_capitalaberto_esperado() {
         Boolean capitalAberto = true;
         empresa.setCapitalAberto(capitalAberto);
-
         assertThat(capitalAberto, is(empresa.getCapitalAberto()));
     }
 
@@ -102,36 +94,29 @@ public class EmpresaTest {
     public void deve_retornar_setor_esperado() {
         String setor = "1234";
         empresa.setSetor(setor);
-
         assertThat(setor, is(empresa.getSetor()));
     }
 
     @Test
     public void deve_retornar_funcionarios_esperado() {
         empresa.setFuncionarios(funcionarios);
-
         assertThat(funcionarios, is(empresa.getFuncionarios()));
     }
 
-    @Test
-    public void deve_retornar_funcionario_esperado() {
-        Pessoa funcionario = pessoa;
-        empresa.setFuncionario(funcionario);
-
-        assertThat(funcionario, is(empresa.getFuncionario()));
-    }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
         Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
-
+        assertThat(empresa.equals(empresa1), is(true));
+        empresa1 = null;
+        assertThat(empresa.equals(empresa1), is(false));
+        empresa1 = empresa;
         assertThat(empresa.equals(empresa1), is(true));
     }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
         Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
-
         assertThat(empresa.hashCode(), is(empresa1.hashCode()));
     }
 
@@ -144,9 +129,7 @@ public class EmpresaTest {
     @Ignore ("Teste desnecessário")
     @Test
     public void deve_retornar_razaosocial_declarada() {
-
         empresa.setRazaoSocial("test");
-
         assertThat(empresa.getRazaoSocial(), is("test"));
     }
 }

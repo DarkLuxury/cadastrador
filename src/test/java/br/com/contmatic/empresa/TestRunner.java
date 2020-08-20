@@ -1,15 +1,10 @@
 package br.com.contmatic.empresa;
-import org.junit.runner.*;
-import org.junit.runner.notification.Failure;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ EmpresaTest.class, EnderecoTest.class, PessoaTest.class })
 public class TestRunner {
-    public static void main(String[] args) {
-        Result resultado = JUnitCore.runClasses(EmpresaTest.class, EnderecoTest.class, PessoaTest.class);
 
-        for(Failure failure : resultado.getFailures()) {
-            System.out.println(failure.toString());
-        }
-
-        System.out.println(resultado.wasSuccessful());
-    }
 }

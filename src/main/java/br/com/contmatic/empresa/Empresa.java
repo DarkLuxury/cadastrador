@@ -10,7 +10,6 @@ public class Empresa {
     private String nomeFantasia;
     private String tamanho;
     private Endereco endereco;
-    private Pessoa funcionario;
     private List <Pessoa> funcionarios;
     private double valuation;
     private String titularidadeCapital;
@@ -103,7 +102,7 @@ public class Empresa {
         this.setor = setor;
     }
 
-    public List getFuncionarios() {
+    public List<Pessoa> getFuncionarios() {
         return funcionarios;
     }
 
@@ -111,20 +110,10 @@ public class Empresa {
         this.funcionarios = funcionarios;
     }
 
-    public Pessoa getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Pessoa funcionario){
-        this.funcionario = funcionario;
-        this.funcionarios.add(funcionario);
-    }
-
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", endereco=" + endereco +
-                ", funcionario=" + funcionario + ", funcionarios=" + funcionarios + ", valuation=" + valuation + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" +
-                capitalAberto + ", setor='" + setor + '\'' + '}';
+                ", funcionarios=" + funcionarios + ", valuation=" + valuation + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
+                '\'' + '}';
     }
 
     @Override
