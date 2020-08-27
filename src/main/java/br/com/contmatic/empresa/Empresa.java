@@ -111,7 +111,7 @@ public class Empresa {
     }
 
     @Override public String toString() {
-        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", endereco=" + endereco +
+        return "Empresa{" + "cnp='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", endereco=" + endereco +
                 ", funcionarios=" + funcionarios + ", valuation=" + valuation + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
                 '\'' + '}';
     }
