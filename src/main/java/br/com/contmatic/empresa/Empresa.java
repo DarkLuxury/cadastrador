@@ -1,22 +1,58 @@
 package br.com.contmatic.empresa;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import br.com.caelum.stella.bean.validation.*;
+import org.hibernate.validator.constraints.URL;
+
+import java.util.*;
+
+import org.joda.time.*;
 
 public class Empresa {
+    @CNPJ
     private String cnpj;
+    @URL
+    private String site;
+    @NotBlank
+    @Pattern(regexp = "[a-zA-Z]+")
     private String razaoSocial;
+    @NotBlank
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String nomeFantasia;
+    @NotBlank
+    @Pattern(regexp = "[a-zA-Z]+")
     private String tamanho;
+    @Valid
     private Endereco endereco;
-    private List <Pessoa> funcionarios;
+    @NotNull
+    private List<Pessoa> funcionarios;
+    @Min(1)
     private double valuation;
+    @Pattern(regexp = "[a-zA-Z]+")
     private String titularidadeCapital;
+    @NotNull
     private Boolean capitalAberto;
+    @Pattern(regexp = "[a-zA-Z]+")
     private String setor;
+    @Future
+    private DateTime dataCadastro;
 
-    public Empresa(String cnpj, String razaoSocial, String tamanho, Endereco endereco, String nomeFantasia, double valuation, String titularidadeCapital, Boolean capitalAberto, String setor){
+    private Telefone telefone;
+    private Set<Telefone> telefones;
+    private Set<Endereco> enderecos;
+
+    @Null
+    private String nula;
+
+    public Empresa() {
+    };
+
+    public Empresa(String cnpj, String razaoSocial, String tamanho, Endereco endereco, String nomeFantasia, double valuation, String titularidadeCapital, Boolean capitalAberto, String setor, String site) {
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
         this.tamanho = tamanho;
@@ -26,8 +62,19 @@ public class Empresa {
         this.titularidadeCapital = titularidadeCapital;
         this.capitalAberto = capitalAberto;
         this.setor = setor;
-
         this.funcionarios = new ArrayList<>();
+        this.site = site;
+        this.dataCadastro = new DateTime();
+        enderecos = new HashSet<Endereco>();
+        telefones = new HashSet<Telefone>();
+    }
+
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(Set<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     public String getCnpj() {
@@ -110,26 +157,56 @@ public class Empresa {
         this.funcionarios = funcionarios;
     }
 
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public DateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(DateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
+    }
+
+    public Set<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Set<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+    
     @Override public String toString() {
-        return "Empresa{" + "cnp='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", endereco=" + endereco +
-                ", funcionarios=" + funcionarios + ", valuation=" + valuation + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
-                '\'' + '}';
+        return new ToStringBuilder(this).append("cnpj", cnpj).append("site", site).append("razaoSocial", razaoSocial).append("nomeFantasia", nomeFantasia).append("tamanho", tamanho)
+                .append("endereco", endereco).append("funcionarios", funcionarios).append("valuation", valuation).append("titularidadeCapital", titularidadeCapital)
+                .append("capitalAberto", capitalAberto).append("setor", setor).append("dataCadastro", dataCadastro).append("telefone", telefone).append("telefones", telefones)
+                .append("enderecos", enderecos).toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Empresa)) {
             return false;
         }
-        Empresa empresa = (Empresa) o;
-        return cnpj.equals(empresa.cnpj);
+        Empresa other = (Empresa) obj;
+        return new EqualsBuilder().append(this.getCnpj(), other.getCnpj()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cnpj);
+        return new HashCodeBuilder().append(this.getCnpj()).toHashCode();
     }
 }

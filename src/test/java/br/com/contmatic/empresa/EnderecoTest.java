@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -9,16 +11,35 @@ import static org.junit.Assert.*;
 
 public class EnderecoTest {
 
-    public Endereco endereco;
+    private Endereco endereco;
+    private Endereco endereco1;
+    private Validation validation;
+    private TipoEnderecoType tipo = TipoEnderecoType.CASA;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
+        validation = new Validation();
+        endereco = Fixture.from(Endereco.class).gimme("endereco");
+        endereco1 = Fixture.from(Endereco.class).gimme("endereco1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
+        endereco1 = null;
+        validation = null;
+    }
+
+    @Test
+    public void deve_retornar_true_para_a_validacao() {
+        assertTrue(validation.validate(endereco));
+    }
+
+    @Test
+    public void deve_retornar_constructor_esperado() {
+        Endereco end = new Endereco("Rua dos anjos", "129", "São Paulo", "SP", "07075170", "Brasil", tipo);
+        assertThat(end, is(endereco));
     }
 
     @Test (timeout = 100)
@@ -63,6 +84,13 @@ public class EnderecoTest {
         assertThat(logradouro, is(endereco.getLogradouro()));
     }
 
+    @Test
+    public void deve_retornar_tipo_endereco_esperado() {
+        TipoEnderecoType tipo = TipoEnderecoType.CASA;
+        endereco.setTipo(tipo);
+        assertThat(tipo, is(endereco.getTipo()));
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void deve_retornar_index_out_of_bounds_exception() {
         new ArrayList<Object>().get(0);
@@ -70,10 +98,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Endereco endereco1 = new Endereco("Rua Padre", "215", "Salvador", "BA", "03315-000", "Italia");
         assertThat(endereco.equals(endereco1), is(true));
-        endereco1 = new Endereco("Rua Padre Estevão Pernet", "218", "São Paulo", "SP", "03315-000", "Brasil");
-        assertThat(endereco.equals(endereco1), is(false));
         endereco1 = null;
         assertThat(endereco.equals(endereco1), is(false));
         endereco1 = endereco;
@@ -82,7 +107,6 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        Endereco endereco1 = new Endereco("Rua Padre", "215", "Salvador", "BA", "03315-000", "Italia");
         assertThat(endereco.hashCode(), is(endereco1.hashCode()));
     }
 

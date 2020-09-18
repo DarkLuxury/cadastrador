@@ -1,22 +1,57 @@
 package br.com.contmatic.empresa;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Endereco {
+    @Size(min = 2, max = 32)
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String pais;
+    @Pattern(regexp = "[a-zA-Z]{2}")
     private String uf;
+    @Size(min = 2, max = 32)
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String cidade;
+    @NotBlank
+    @Pattern(regexp = "[0-9]{8}")
     private String cep;
+    @NotBlank
+    @Pattern(regexp = "[a-zA-Z0-9]+")
     private String numero;
+    @Size(min = 2)
+    @Pattern(regexp = "[a-zA-Z0-9\\s]+")
     private String logradouro;
+    @NotNull
+    private TipoEnderecoType tipo;
 
-    public Endereco(String logradouro, String numero, String cidade, String uf, String cep, String pais){
+    public Endereco() {
+    }
+
+    public Endereco(String logradouro, String numero, String cidade, String uf, String cep, String pais, TipoEnderecoType tipo) {
         this.pais = pais;
         this.uf = uf;
         this.cidade = cidade;
         this.cep = cep;
         this.numero = numero;
         this.logradouro = logradouro;
+        this.tipo = tipo;
+    }
+
+    public TipoEnderecoType getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoEnderecoType tipo){
+        this.tipo = tipo;
     }
 
     public String getPais() {
@@ -69,32 +104,23 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" +
-                "pais='" + pais + '\'' +
-                ", uf='" + uf + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", cep='" + cep + '\'' +
-                ", numero='" + numero + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                '}';
+        return new ToStringBuilder(this).append("pais", pais).append("uf", uf).append("cidade", cidade).append("cep", cep)
+                .append("numero", numero).append("logradouro", logradouro).append("tipo", tipo).toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Endereco)) {
             return false;
         }
-
-        Endereco endereco = (Endereco) o;
-        return cep.equals(endereco.cep) &&
-                numero.equals(endereco.numero);
+        Endereco other = (Endereco) obj;
+        return new EqualsBuilder().append(this.getCep(), other.getCep()).append(this.getNumero(), other.getNumero()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cep, numero);
+        return new HashCodeBuilder().append(this.getCep()).append(this.getNumero()).toHashCode();
     }
+    
+    
 }

@@ -1,19 +1,59 @@
 package br.com.contmatic.empresa;
 
+import br.com.caelum.stella.bean.validation.CNPJ;
+import br.com.caelum.stella.bean.validation.CPF;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Pessoa {
+    @NotEmpty
+    @Size(min = 2, max = 32, message = "Nome deve conter de 2 a 32 caracteres")
+    @Pattern(regexp = "[a-zA-Z]+")
     private String nome;
+    @CPF
     private String cpf;
+    @Size(max = 9)
+    @Pattern(regexp = "[0-9]{8}[0-9xX]")
     private String rg;
+    @Email
+    private String email;
+    @Pattern(regexp = "[a-zA-Z]{2}")
     private String ufNasc;
+    @Size(min = 2, max = 32, message = "Nome da cidade deve conter de 2 a 32 caracteres")
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String cidadeNasc;
+    @Size(min = 2, max = 32, message = "Nome da mãe deve conter de 2 a 32 caracteres")
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String nomeMae;
+    @Length(max = 1)
+    @Pattern(regexp = "[MFmf]")
     private String sexo;
+    @Min(1)
+    @Max(150)
     private int idade;
+    @Valid
     private Endereco endereco;
+    @Valid
+    private Telefone telefone;
 
-    Pessoa (String nome, String cpf, String ufNasc, String cidadeNasc, String nomeMae, String rg, String sexo, int idade, Endereco endereco) {
+    private Set<Telefone> telefones;
+
+    public Pessoa() {
+    };
+
+    public Pessoa(String nome, String cpf, String ufNasc, String cidadeNasc, String nomeMae, String rg, String sexo, int idade, Endereco endereco, String email, Telefone telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.sexo = sexo;
@@ -23,6 +63,9 @@ public class Pessoa {
         this.ufNasc = ufNasc;
         this.cidadeNasc = cidadeNasc;
         this.nomeMae = nomeMae;
+        this.email = email;
+        this.telefone = telefone;
+        Set<Telefone> telefones = new HashSet<Telefone>();
     }
 
     public String getNome() {
@@ -97,27 +140,47 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    @Override public String toString() {
-        return "Pessoa{" + "nome='" + nome + '\'' + ", cpf='" + cpf + '\'' + ", rg='" + rg + '\'' + ", ufNasc='" + ufNasc + '\'' + ", cidadeNasc='" + cidadeNasc + '\'' + ", nomeMae='" + nomeMae +
-                '\'' + ", sexo='" + sexo + '\'' + ", idade=" + idade + ", endereco=" + endereco + '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
+    }
+
+    public Set<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Set<Telefone> telefones) {
+        this.telefones = telefones;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+    public String toString() {
+        return new ToStringBuilder(this).append("nome", nome).append("cpf", cpf).append("rg", rg).append("ufNasc", ufNasc).append("cidadeNasc", cidadeNasc).append("nomeMae", nomeMae)
+                .append("sexo", sexo).append("idade", idade).append("endereco", endereco).append("email", email).append("telefone", telefone).append("telefones", telefones).toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Pessoa)) {
             return false;
         }
-        Pessoa pessoa = (Pessoa) o;
-        return cpf.equals(pessoa.cpf);
+        Pessoa other = (Pessoa) obj;
+        return new EqualsBuilder().append(this.getCpf(), other.getCpf()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf);
+        return new HashCodeBuilder().append(this.getCpf()).toHashCode();
     }
-
-
 }

@@ -1,6 +1,12 @@
 package br.com.contmatic.empresa;
 
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import org.junit.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 import static org.hamcrest.Matchers.is;
@@ -9,18 +15,38 @@ import static org.hamcrest.Matchers.is;
 public class PessoaTest {
 
     private Endereco endereco;
+    private Telefone telefone;
     private Pessoa pessoa;
+    private Pessoa pessoa1;
+    private Validation validation;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
-        pessoa = new Pessoa("Teste", "teste", "teste", "teste", "teste", "teste", "teste", 99, endereco);
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
+        validation = new Validation();
+        endereco = Fixture.from(Endereco.class).gimme("endereco");
+        telefone = Fixture.from(Telefone.class).gimme("telefone");
+        pessoa = Fixture.from(Pessoa.class).gimme("pessoa");
+        pessoa1 = Fixture.from(Pessoa.class).gimme("pessoa1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
         pessoa = null;
+        pessoa1 = null;
+        validation = null;
+    }
+
+    @Test
+    public void deve_retornar_true_para_a_validacao() {
+        assertTrue(validation.validate(pessoa));
+    }
+
+    @Test
+    public void deve_retornar_constructor_esperado() {
+        Pessoa pes = new Pessoa("luiz", "53962962590", "sp", "São Paulo", "Roberta", "561272359", "M", 21, endereco, "luizhenrique@gmail.com", telefone);
+        assertThat(pes, is(pessoa));
     }
 
     @Test
@@ -86,8 +112,28 @@ public class PessoaTest {
     }
 
     @Test
+    public void deve_retornar_email_esperado() {
+        String email = "luiz@gmail.com";
+        pessoa.setEmail(email);
+        assertThat(email, is(pessoa.getEmail()));
+    }
+
+    @Test
+    public void deve_retornar_telefone_esperado() {
+        pessoa.setTelefone(telefone);
+        assertThat(telefone, is(pessoa.getTelefone()));
+    }
+
+    @Test
+    public void deve_retornar_lista_telefone_esperada() {
+        Set<Telefone> telefones = new HashSet<Telefone>();
+        telefones.add(telefone);
+        pessoa.setTelefones(telefones);
+        assertThat(telefones, is(pessoa.getTelefones()));
+    }
+
+    @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Pessoa pessoa1 = new Pessoa("Teste1", "teste", "teste1", "teste1", "teste1", "teste1", "teste1", 10, endereco);
         assertThat(pessoa.equals(pessoa1), is(true));
         pessoa1 = null;
         assertThat(pessoa.equals(pessoa1), is(false));
@@ -96,8 +142,7 @@ public class PessoaTest {
     }
 
     @Test
-    public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Pessoa pessoa1 = new Pessoa("Teste1", "teste", "teste1", "teste1", "teste1", "teste1", "teste1", 10, endereco);
+    public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
         assertThat(pessoa.hashCode(), is(pessoa1.hashCode()));
     }
 

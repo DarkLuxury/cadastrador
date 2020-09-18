@@ -1,12 +1,21 @@
 package br.com.contmatic.empresa;
 
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.Rule;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import org.joda.time.DateTime;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -14,24 +23,41 @@ public class EmpresaTest {
 
     private Endereco endereco;
     private Empresa empresa;
+    private Telefone telefone;
+    private Empresa empresa1;
     private Pessoa pessoa;
     private List<Pessoa> funcionarios;
+    private Validation validation;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
-        empresa = new Empresa("0000", "Teste", "teste", endereco, "teste", 88.5, "privada", false, "primário");
-        pessoa = new Pessoa("teste", "teste", "teste", "teste", "teste", "teste", "teste", 99, endereco);
-        funcionarios = new ArrayList<>();
-        funcionarios.add(pessoa);
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
+        validation = new Validation();
+        endereco = Fixture.from(Endereco.class).gimme("endereco");
+        pessoa = Fixture.from(Pessoa.class).gimme("pessoa");
+        telefone = Fixture.from(Telefone.class).gimme("telefone");
+        empresa = Fixture.from(Empresa.class).gimme("empresa");
+        empresa1 = Fixture.from(Empresa.class).gimme("empresa1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
         empresa = null;
+        empresa1 = null;
         pessoa = null;
-        funcionarios = null;
+        validation = null;
+    }
+
+    @Test
+    public void deve_retornar_true_para_a_validacao() {
+        assertTrue(validation.validate(empresa));
+    }
+
+    @Test
+    public void deve_retornar_constructor_esperado() {
+        Empresa emp = new Empresa("58119371000177", "Softmatic phoenix", "medio/grande", endereco, "Contmatic phoenix", 12500000.0, "privado", false, "terciario", "www.contmatic.com.br");
+        assertThat(emp, is(empresa));
     }
 
     @Test
@@ -46,6 +72,13 @@ public class EmpresaTest {
         String razao = "1234";
         empresa.setRazaoSocial(razao);
         assertThat(razao, is(empresa.getRazaoSocial()));
+    }
+
+    @Test
+    public void deve_retornar_site_esperado() {
+        String site = "teste.com";
+        empresa.setSite(site);
+        assertThat(site, is(empresa.getSite()));
     }
 
     @Test
@@ -103,10 +136,38 @@ public class EmpresaTest {
         assertThat(funcionarios, is(empresa.getFuncionarios()));
     }
 
+    @Test
+    public void deve_retornar_data_cadastro_esperada() {
+        DateTime data = new DateTime();
+        empresa.setDataCadastro(data);
+        assertThat(data, is(empresa.getDataCadastro()));
+    }
+
+    @Test
+    public void deve_retornar_telefone_esperado() {
+        empresa.setTelefone(telefone);
+        assertThat(telefone, is(empresa.getTelefone()));
+    }
+
+    @Test
+    public void deve_retornar_lista_telefone_esperada() {
+        Set<Telefone> telefones = new HashSet<Telefone>();
+        telefones.add(telefone);
+        empresa.setTelefones(telefones);
+        assertThat(telefones, is(empresa.getTelefones()));
+    }
+
+    @Test
+    public void deve_retornar_lista_endereco_esperada() {
+        Set<Endereco> enderecos = new HashSet<Endereco>();
+        enderecos.add(endereco);
+        empresa.setEnderecos(enderecos);
+        assertThat(enderecos, is(empresa.getEnderecos()));
+    }
+
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
         assertThat(empresa.equals(empresa1), is(true));
         empresa1 = null;
         assertThat(empresa.equals(empresa1), is(false));
@@ -115,8 +176,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
+    public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
         assertThat(empresa.hashCode(), is(empresa1.hashCode()));
     }
 
