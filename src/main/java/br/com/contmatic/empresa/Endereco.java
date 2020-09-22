@@ -4,19 +4,20 @@ import java.util.Objects;
 
 public class Endereco {
     private String pais;
+
     private String uf;
+
     private String cidade;
+
     private String cep;
+
     private String numero;
+
     private String logradouro;
 
-    public Endereco(String logradouro, String numero, String cidade, String uf, String cep, String pais){
-        this.pais = pais;
-        this.uf = uf;
-        this.cidade = cidade;
-        this.cep = cep;
-        this.numero = numero;
-        this.logradouro = logradouro;
+    public Endereco(String cep, String numero){
+        this.setCep(cep);
+        this.setNumero(numero);
     }
 
     public String getPais() {

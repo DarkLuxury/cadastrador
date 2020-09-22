@@ -13,8 +13,8 @@ public class PessoaTest {
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
-        pessoa = new Pessoa("Teste", "teste", "teste", "teste", "teste", "teste", "teste", 99, endereco);
+        endereco = new Endereco("07075170", "215");
+        pessoa = new Pessoa("53558971000");
     }
 
     @After
@@ -39,7 +39,7 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_cpf_esperado() {
-        String cpf = "testee";
+        String cpf = "37694674423";
         pessoa.setCpf(cpf);
         assertThat(cpf, is(pessoa.getCpf()));
     }
@@ -87,7 +87,7 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Pessoa pessoa1 = new Pessoa("Teste1", "teste", "teste1", "teste1", "teste1", "teste1", "teste1", 10, endereco);
+        Pessoa pessoa1 = new Pessoa("53558971000");
         assertThat(pessoa.equals(pessoa1), is(true));
         pessoa1 = null;
         assertThat(pessoa.equals(pessoa1), is(false));
@@ -97,7 +97,7 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Pessoa pessoa1 = new Pessoa("Teste1", "teste", "teste1", "teste1", "teste1", "teste1", "teste1", 10, endereco);
+        Pessoa pessoa1 = new Pessoa("53558971000");
         assertThat(pessoa.hashCode(), is(pessoa1.hashCode()));
     }
 

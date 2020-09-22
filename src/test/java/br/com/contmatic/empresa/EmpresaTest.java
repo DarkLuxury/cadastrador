@@ -19,9 +19,9 @@ public class EmpresaTest {
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("Rua Padre Estevão Pernet", "215", "São Paulo", "SP", "03315-000", "Brasil");
-        empresa = new Empresa("0000", "Teste", "teste", endereco, "teste", 88.5, "privada", false, "primário");
-        pessoa = new Pessoa("teste", "teste", "teste", "teste", "teste", "teste", "teste", 99, endereco);
+        endereco = new Endereco("03315000", "215");
+        empresa = new Empresa("18688133000168");
+        pessoa = new Pessoa("53558971000");
         funcionarios = new ArrayList<>();
         funcionarios.add(pessoa);
     }
@@ -36,7 +36,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_cnpj_esperado() {
-        String cnpj = "1234";
+        String cnpj = "18688133000168";
         empresa.setCnpj(cnpj);
         assertThat(cnpj, is(empresa.getCnpj()));
     }
@@ -72,8 +72,8 @@ public class EmpresaTest {
     @Test
     public void deve_retornar_valuation_esperada() {
         Double valuation = 1234.0;
-        empresa.setValuation(valuation);
-        assertThat(valuation, is(empresa.getValuation()));
+        empresa.setValorEmpresa(valuation);
+        assertThat(valuation, is(empresa.getValorEmpresa()));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
+        Empresa empresa1 = new Empresa("18688133000168");
         assertThat(empresa.equals(empresa1), is(true));
         empresa1 = null;
         assertThat(empresa.equals(empresa1), is(false));
@@ -116,7 +116,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Empresa empresa1 = new Empresa("0000", "Test32e", "teste312", endereco, "tesaate", 105.5, "publica", true, "secundário");
+        Empresa empresa1 = new Empresa("18688133000168");
         assertThat(empresa.hashCode(), is(empresa1.hashCode()));
     }
 

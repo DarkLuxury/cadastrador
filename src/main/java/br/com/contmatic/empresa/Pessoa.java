@@ -1,28 +1,34 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.Validator;
+
 import java.util.Objects;
+
+import static br.com.contmatic.Validator.*;
 
 public class Pessoa {
     private String nome;
+
     private String cpf;
+
     private String rg;
+
     private String ufNasc;
+
     private String cidadeNasc;
+
     private String nomeMae;
+
     private String sexo;
+
     private int idade;
+
     private Endereco endereco;
 
-    Pessoa (String nome, String cpf, String ufNasc, String cidadeNasc, String nomeMae, String rg, String sexo, int idade, Endereco endereco) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.sexo = sexo;
-        this.idade = idade;
-        this.endereco = endereco;
-        this.rg = rg;
-        this.ufNasc = ufNasc;
-        this.cidadeNasc = cidadeNasc;
-        this.nomeMae = nomeMae;
+    private Validator validator = new Validator();
+
+    public Pessoa(String cpf){
+        setCpf(cpf);
     }
 
     public String getNome() {
@@ -38,6 +44,7 @@ public class Pessoa {
     }
 
     public void setCpf(String cpf) {
+        validarCpf(cpf);
         this.cpf = cpf;
     }
 
