@@ -1,5 +1,7 @@
 import br.com.contmatic.empresa.Empresa;
+import br.com.contmatic.empresa.Endereco;
 import br.com.contmatic.empresa.Pessoa;
+import com.sun.corba.se.impl.resolver.SplitLocalResolverImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +16,14 @@ public class Main {
         validarCnpj(empresa.getCnpj());
         validarCpf(pessoa.getCpf());
 
-        List lista = new ArrayList();
-        lista.add("teste");
+        List<Endereco> enderecos = new ArrayList<>();
+        Endereco endereco = new Endereco("07075170", 180);
+        enderecos.add(endereco);
+        enderecos.add(endereco);
 
-        System.out.println(lista.size());
+
+
+
+        System.out.println(enderecos);
     }
 }

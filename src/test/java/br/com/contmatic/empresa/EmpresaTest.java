@@ -1,13 +1,17 @@
 package br.com.contmatic.empresa;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EmpresaTest {
@@ -23,16 +27,9 @@ public class EmpresaTest {
         endereco = new Endereco("03315000", 215);
         empresa = new Empresa("18688133000168");
         pessoa = new Pessoa("53558971000");
+        enderecos = new ArrayList<>();
         funcionarios = new ArrayList<>();
         funcionarios.add(pessoa);
-    }
-
-    @After
-    public void finalizacao() {
-        endereco = null;
-        empresa = null;
-        pessoa = null;
-        funcionarios = null;
     }
 
     @Test
@@ -44,21 +41,21 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_razaosocial_esperada() {
-        String razao = "1234";
+        String razao = "Razão social";
         empresa.setRazaoSocial(razao);
         assertThat(razao, is(empresa.getRazaoSocial()));
     }
 
     @Test
     public void deve_retornar_nomefantasia_esperado() {
-        String nomefantasia = "1234";
+        String nomefantasia = "Nome fantasia";
         empresa.setNomeFantasia(nomefantasia);
         assertThat(nomefantasia, is(empresa.getNomeFantasia()));
     }
 
     @Test
     public void deve_retornar_tamanho_esperado() {
-        String tamanho = "1234";
+        String tamanho = "pequeno";
         empresa.setTamanho(tamanho);
         assertThat(tamanho, is(empresa.getTamanho()));
     }
@@ -79,7 +76,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_titularidadecapital_esperada() {
-        String titularidade = "1234";
+        String titularidade = "privado";
         empresa.setTitularidadeCapital(titularidade);
         assertThat(titularidade, is(empresa.getTitularidadeCapital()));
     }
@@ -93,7 +90,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_setor_esperado() {
-        String setor = "1234";
+        String setor = "primário";
         empresa.setSetor(setor);
         assertThat(setor, is(empresa.getSetor()));
     }

@@ -27,9 +27,9 @@ public class Endereco {
     }
 
     public void setPais(String pais) {
-        naoNulo(this.pais, "país");
-        tamanhoStringMinMax(this.pais, "país", 2,32);
-        stringContemSomenteLetrasEspacos(this.pais, "país");
+        naoNulo(pais, "país");
+        tamanhoStringMinMax(pais, "país", 2,32);
+        stringContemSomenteLetrasEspacos(pais, "país");
         this.pais = pais;
     }
 
@@ -38,8 +38,8 @@ public class Endereco {
     }
 
     public void setUf(String uf) {
-        naoNulo(this.uf, "uf");
-        tamanhoStringIgual(this.uf, "uf", 2);
+        naoNulo(uf, "uf");
+        tamanhoStringIgual(uf, "uf", 2);
         stringContemSomenteLetras(uf, "uf");
         this.uf = uf;
     }
@@ -49,9 +49,9 @@ public class Endereco {
     }
 
     public void setCidade(String cidade) {
-        naoNulo(this.cidade, "cidade");
-        stringContemSomenteLetrasEspacos(this.cidade, "cidade");
-        tamanhoStringMinMax(this.cidade, "cidade", 2, 32);
+        naoNulo(cidade, "cidade");
+        stringContemSomenteLetrasEspacos(cidade, "cidade");
+        tamanhoStringMinMax(cidade, "cidade", 2, 32);
         this.cidade = cidade;
     }
 
@@ -60,9 +60,9 @@ public class Endereco {
     }
 
     public void setCep(String cep) {
-        naoNulo(this.cep, "cep");
-        stringContemSomenteNumeros(this.cep, "cep");
-        tamanhoStringIgual(this.cep, "cep", 8);
+        naoNulo(cep, "cep");
+        stringContemSomenteNumeros(cep, "cep");
+        tamanhoStringIgual(cep, "cep", 8);
         this.cep = cep;
     }
 
@@ -71,8 +71,8 @@ public class Endereco {
     }
 
     public void setNumero(Integer numero) {
-        naoNulo(this.numero, "numero");
-        integerTamanhoMin(this.numero, 1);
+        naoNulo(numero, "numero");
+        integerTamanhoMin(numero, 1);
         this.numero = numero;
     }
 
@@ -96,18 +96,16 @@ public class Endereco {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    @Override public boolean equals(Object o) {
+        if (this == o)
             return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+
+        if (o == null || getClass() != o.getClass())
             return false;
-        }
 
         Endereco endereco = (Endereco) o;
-        return cep.equals(endereco.cep) &&
-                numero.equals(endereco.numero);
+
+        return new org.apache.commons.lang3.builder.EqualsBuilder().append(numero, endereco.numero).append(cep, endereco.cep).isEquals();
     }
 
     @Override

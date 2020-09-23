@@ -47,9 +47,9 @@ public class Empresa {
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        naoNulo(this.razaoSocial, "razão social");
-        tamanhoStringMinMax(this.razaoSocial, "razão social", 2, 200);
-        stringContemSomenteLetrasEspacos(this.razaoSocial, "razão social");
+        naoNulo(razaoSocial, "razão social");
+        tamanhoStringMinMax(razaoSocial, "razão social", 2, 200);
+        stringContemSomenteLetrasEspacos(razaoSocial, "razão social");
         this.razaoSocial = razaoSocial;
     }
 
@@ -58,9 +58,9 @@ public class Empresa {
     }
 
     public void setNomeFantasia(String nomeFantasia) {
-        naoNulo(this.nomeFantasia, "nome fantasia");
-        tamanhoStringMinMax(this.nomeFantasia,"nome fantasia", 2, 200);
-        stringContemSomenteLetrasEspacos(this.nomeFantasia, "nome fantasia");
+        naoNulo(nomeFantasia, "nome fantasia");
+        tamanhoStringMinMax(nomeFantasia,"nome fantasia", 2, 200);
+        stringContemSomenteLetrasEspacos(nomeFantasia, "nome fantasia");
         this.nomeFantasia = nomeFantasia;
     }
 
@@ -69,9 +69,9 @@ public class Empresa {
     }
 
     public void setTamanho(String tamanho) {
-        naoNulo(this.tamanho, "tamanho");
-        tamanhoStringMinMax(this.tamanho, "tamanho", 5, 7);
-        stringContemSomenteLetras(this.tamanho, "tamanho");
+        naoNulo(tamanho, "tamanho");
+        tamanhoStringMinMax(tamanho, "tamanho", 5, 7);
+        stringContemSomenteLetras(tamanho, "tamanho");
         this.tamanho = tamanho;
     }
 
@@ -80,8 +80,8 @@ public class Empresa {
     }
 
     public void setEnderecos(List<Endereco> enderecos) {
-        naoNulo(this.enderecos, "enderecos");
-        tamanhoListaMin(this.enderecos, "enderecos", 1);
+        naoNulo(enderecos, "enderecos");
+        tamanhoListaMin(enderecos, "enderecos", 1);
         this.enderecos = enderecos;
     }
 
@@ -98,9 +98,9 @@ public class Empresa {
     }
 
     public void setTitularidadeCapital(String titularidadeCapital) {
-        naoNulo(this.titularidadeCapital, "titularidade do capital");
-        stringContemSomenteLetras(this.titularidadeCapital, "titularidade do capital");
-        tamanhoStringIgual(this.titularidadeCapital, "titularidade do capital", 7);
+        naoNulo(titularidadeCapital, "titularidade do capital");
+        stringContemSomenteLetras(titularidadeCapital, "titularidade do capital");
+        tamanhoStringIgual(titularidadeCapital, "titularidade do capital", 7);
         this.titularidadeCapital = titularidadeCapital;
     }
 
@@ -109,7 +109,7 @@ public class Empresa {
     }
 
     public void setCapitalAberto(Boolean capitalAberto) {
-        naoNulo(this.capitalAberto, "capital aberto");
+        naoNulo(capitalAberto, "capital aberto");
         this.capitalAberto = capitalAberto;
     }
 
@@ -118,9 +118,9 @@ public class Empresa {
     }
 
     public void setSetor(String setor) {
-        naoNulo(this.setor, "setor");
-        tamanhoStringMinMax(this.setor, "setor", 8, 10);
-        stringContemSomenteLetras(this.setor, "setor");
+        naoNulo(setor, "setor");
+        tamanhoStringMinMax(setor, "setor", 8, 10);
+        stringContemSomenteLetras(setor, "setor");
         this.setor = setor;
     }
 
@@ -129,8 +129,8 @@ public class Empresa {
     }
 
     public void setFuncionarios(List<Pessoa> funcionarios) {
-        naoNulo(this.funcionarios, "funcionarios");
-        tamanhoListaMin(this.funcionarios, "funcionarios", 1);
+        naoNulo(funcionarios, "funcionarios");
+        tamanhoListaMin(funcionarios, "funcionarios", 1);
         this.funcionarios = funcionarios;
     }
 

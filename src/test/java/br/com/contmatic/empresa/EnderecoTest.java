@@ -16,35 +16,30 @@ public class EnderecoTest {
         endereco = new Endereco("03315000", 215);
     }
 
-    @After
-    public void finalizacao() {
-        endereco = null;
-    }
-
     @Test (timeout = 100)
     public void deve_retornar_pais_esperado() {
-        String pais = "teste";
+        String pais = "Brasil";
         endereco.setPais(pais);
         assertThat(pais, is(endereco.getPais()));
     }
 
     @Test
     public void deve_retornar_uf_esperada() {
-        String uf = "teste";
+        String uf = "sp";
         endereco.setUf(uf);
         assertThat(uf, is(endereco.getUf()));
     }
 
     @Test
     public void deve_retornar_cidade_esperada() {
-        String cidade = "teste";
+        String cidade = "São Paulo";
         endereco.setCidade(cidade);
         assertThat(cidade, is(endereco.getCidade()));
     }
 
     @Test
     public void deve_retornar_cep_esperado() {
-        String cep = "teste";
+        String cep = "07075180";
         endereco.setCep(cep);
         assertThat(cep, is(endereco.getCep()));
     }
@@ -58,7 +53,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_logradouro_esperado() {
-        String logradouro = "teste";
+        String logradouro = "rua do teste";
         endereco.setLogradouro(logradouro);
         assertThat(logradouro, is(endereco.getLogradouro()));
     }

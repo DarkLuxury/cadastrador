@@ -17,22 +17,16 @@ public class PessoaTest {
         pessoa = new Pessoa("53558971000");
     }
 
-    @After
-    public void finalizacao() {
-        endereco = null;
-        pessoa = null;
-    }
-
     @Test
     public void deve_retornar_nome_esperado() {
-        String nome = "testee";
+        String nome = "Luiz Henrique";
         pessoa.setNome(nome);
         assertThat(nome, is(pessoa.getNome()));
     }
 
     @Test
     public void deve_retornar_rg_esperado() {
-        String rg = "testee";
+        String rg = "561672657";
         pessoa.setRg(rg);
         assertThat(rg, is(pessoa.getRg()));
     }
@@ -46,28 +40,28 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_ufnasc_esperado() {
-        String ufnasc = "testee";
+        String ufnasc = "sp";
         pessoa.setUfNasc(ufnasc);
         assertThat(ufnasc, is(pessoa.getUfNasc()));
     }
 
     @Test
     public void deve_retornar_cidadenasc_esperado() {
-        String cidadenasc = "testee";
+        String cidadenasc = "São Paulo";
         pessoa.setCidadeNasc(cidadenasc);
         assertThat(cidadenasc, is(pessoa.getCidadeNasc()));
     }
 
     @Test
     public void deve_retornar_nomemae_esperado() {
-        String nomeMae = "testee";
+        String nomeMae = "Roberta";
         pessoa.setNomeMae(nomeMae);
         assertThat(nomeMae, is(pessoa.getNomeMae()));
     }
 
     @Test
     public void deve_retornar_sexo_esperado() {
-        String sexo = "testee";
+        String sexo = "m";
         pessoa.setSexo(sexo);
         assertThat(sexo, is(pessoa.getSexo()));
     }
