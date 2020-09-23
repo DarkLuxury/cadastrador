@@ -13,7 +13,7 @@ public class PessoaTest {
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("07075170", "215");
+        endereco = new Endereco("07075170", 215);
         pessoa = new Pessoa("53558971000");
     }
 

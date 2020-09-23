@@ -16,10 +16,11 @@ public class EmpresaTest {
     private Empresa empresa;
     private Pessoa pessoa;
     private List<Pessoa> funcionarios;
+    private List<Endereco> enderecos;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("03315000", "215");
+        endereco = new Endereco("03315000", 215);
         empresa = new Empresa("18688133000168");
         pessoa = new Pessoa("53558971000");
         funcionarios = new ArrayList<>();
@@ -64,9 +65,9 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_endereco_esperado() {
-        Endereco enderecoTeste = endereco;
-        empresa.setEndereco(enderecoTeste);
-        assertThat(enderecoTeste, is(empresa.getEndereco()));
+        enderecos.add(endereco);
+        empresa.setEnderecos(enderecos);
+        assertThat(enderecos, is(empresa.getEnderecos()));
     }
 
     @Test

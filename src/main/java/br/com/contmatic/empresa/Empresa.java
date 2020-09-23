@@ -1,6 +1,7 @@
 package br.com.contmatic.empresa;
 
-import static br.com.contmatic.Validator.*;
+import static br.com.contmatic.util.Validator.*;
+import static br.com.contmatic.util.CnpjValidator.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,8 @@ public class Empresa {
 
     private double valorEmpresa;
 
-    private Endereco endereco;
-    
+    private List <Endereco> enderecos = new ArrayList<>();
+
     private List <Pessoa> funcionarios = new ArrayList<>();
     
     public Empresa(String cnpj) {
@@ -47,7 +48,7 @@ public class Empresa {
 
     public void setRazaoSocial(String razaoSocial) {
         naoNulo(this.razaoSocial, "razão social");
-        tamanhoString(this.razaoSocial, "razão social", 2, 200);
+        tamanhoStringMinMax(this.razaoSocial, "razão social", 2, 200);
         stringContemSomenteLetrasEspacos(this.razaoSocial, "razão social");
         this.razaoSocial = razaoSocial;
     }
@@ -58,7 +59,7 @@ public class Empresa {
 
     public void setNomeFantasia(String nomeFantasia) {
         naoNulo(this.nomeFantasia, "nome fantasia");
-        tamanhoString(this.nomeFantasia,"nome fantasia", 2, 200);
+        tamanhoStringMinMax(this.nomeFantasia,"nome fantasia", 2, 200);
         stringContemSomenteLetrasEspacos(this.nomeFantasia, "nome fantasia");
         this.nomeFantasia = nomeFantasia;
     }
@@ -69,18 +70,19 @@ public class Empresa {
 
     public void setTamanho(String tamanho) {
         naoNulo(this.tamanho, "tamanho");
-        tamanhoString(this.tamanho, "tamanho", 5, 7);
+        tamanhoStringMinMax(this.tamanho, "tamanho", 5, 7);
         stringContemSomenteLetras(this.tamanho, "tamanho");
         this.tamanho = tamanho;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEndereco(Endereco endereco) {
-        naoNulo(this.endereco, "endereço");
-        this.endereco = endereco;
+    public void setEnderecos(List<Endereco> enderecos) {
+        naoNulo(this.enderecos, "enderecos");
+        tamanhoListaMin(this.enderecos, "enderecos", 1);
+        this.enderecos = enderecos;
     }
 
     public double getValorEmpresa() {
@@ -88,7 +90,6 @@ public class Empresa {
     }
 
     public void setValorEmpresa(double valorEmpresa) {
-        naoNulo(this.valorEmpresa, "valuation");
         this.valorEmpresa = valorEmpresa;
     }
 
@@ -99,7 +100,7 @@ public class Empresa {
     public void setTitularidadeCapital(String titularidadeCapital) {
         naoNulo(this.titularidadeCapital, "titularidade do capital");
         stringContemSomenteLetras(this.titularidadeCapital, "titularidade do capital");
-        tamanhoString(this.titularidadeCapital, "titularidade do capital", 7, 7);
+        tamanhoStringIgual(this.titularidadeCapital, "titularidade do capital", 7);
         this.titularidadeCapital = titularidadeCapital;
     }
 
@@ -118,7 +119,7 @@ public class Empresa {
 
     public void setSetor(String setor) {
         naoNulo(this.setor, "setor");
-        tamanhoString(this.setor, "setor", 8, 10);
+        tamanhoStringMinMax(this.setor, "setor", 8, 10);
         stringContemSomenteLetras(this.setor, "setor");
         this.setor = setor;
     }
@@ -129,11 +130,13 @@ public class Empresa {
 
     public void setFuncionarios(List<Pessoa> funcionarios) {
         naoNulo(this.funcionarios, "funcionarios");
+        tamanhoListaMin(this.funcionarios, "funcionarios", 1);
         this.funcionarios = funcionarios;
     }
 
-    @Override public String toString() {
-        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", endereco=" + endereco +
+    @Override
+    public String toString() {
+        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", enderecos=" + enderecos +
                 ", funcionarios=" + funcionarios + ", valuation=" + valorEmpresa + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
                 '\'' + '}';
     }

@@ -1,12 +1,12 @@
 package br.com.contmatic.empresa;
 
-import br.com.contmatic.Validator;
+import static br.com.contmatic.util.Validator.*;
+import static br.com.contmatic.util.CpfValidator.*;
 
 import java.util.Objects;
 
-import static br.com.contmatic.Validator.*;
-
 public class Pessoa {
+
     private String nome;
 
     private String cpf;
@@ -21,11 +21,9 @@ public class Pessoa {
 
     private String sexo;
 
-    private int idade;
+    private Integer idade;
 
     private Endereco endereco;
-
-    private Validator validator = new Validator();
 
     public Pessoa(String cpf){
         setCpf(cpf);
@@ -36,6 +34,9 @@ public class Pessoa {
     }
 
     public void setNome(String nome) {
+        naoNulo(this.nome, "nome");
+        tamanhoStringMinMax(this.nome, "nome", 2, 32);
+        stringContemSomenteLetrasEspacos(this.nome, "nome");
         this.nome = nome;
     }
 
@@ -53,6 +54,9 @@ public class Pessoa {
     }
 
     public void setRg(String rg) {
+        naoNulo(this.rg, "rg");
+        stringContemSomenteNumeros(this.rg, "rg");
+        tamanhoStringIgual(this.rg, "rg", 9);
         this.rg = rg;
     }
 
@@ -61,6 +65,9 @@ public class Pessoa {
     }
 
     public void setUfNasc(String ufNasc) {
+        naoNulo(this.rg, "rg");
+        stringContemSomenteLetras(this.ufNasc, "uf de nascimento");
+        tamanhoStringIgual(this.ufNasc, "uf de nascimento", 2);
         this.ufNasc = ufNasc;
     }
 
@@ -69,6 +76,9 @@ public class Pessoa {
     }
 
     public void setCidadeNasc(String cidadeNasc) {
+        naoNulo(this.cidadeNasc, "cidade de nascimento");
+        stringContemSomenteLetrasEspacos(this.cidadeNasc, "cidade de nascimento");
+        tamanhoStringMinMax(this.cidadeNasc, "cidade de nascimento", 2, 32);
         this.cidadeNasc = cidadeNasc;
     }
 
@@ -77,6 +87,9 @@ public class Pessoa {
     }
 
     public void setNomeMae(String nomeMae) {
+        naoNulo(this.nomeMae, "nome da mãe");
+        stringContemSomenteLetrasEspacos(this.nomeMae, "nome da mãe");
+        tamanhoStringMinMax(this.nomeMae, "nome da mãe", 2, 32);
         this.nomeMae = nomeMae;
     }
 
@@ -85,6 +98,9 @@ public class Pessoa {
     }
 
     public void setSexo(String sexo) {
+        naoNulo(this.sexo, "sexo");
+        stringContemSomenteLetras(this.sexo, "sexo");
+        tamanhoStringIgual(this.sexo, "sexo", 1);
         this.sexo = sexo;
     }
 
@@ -92,7 +108,9 @@ public class Pessoa {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
+        naoNulo(this.idade, "idade");
+        integerTamanhoMaxMin(this.idade, 1, 150);
         this.idade = idade;
     }
 
@@ -101,6 +119,7 @@ public class Pessoa {
     }
 
     public void setEndereco(Endereco endereco) {
+        naoNulo(this.endereco, "endereco");
         this.endereco = endereco;
     }
 
@@ -125,6 +144,5 @@ public class Pessoa {
     public int hashCode() {
         return Objects.hash(cpf);
     }
-
 
 }

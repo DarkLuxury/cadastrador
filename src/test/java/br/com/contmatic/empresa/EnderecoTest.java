@@ -13,7 +13,7 @@ public class EnderecoTest {
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("03315000", "215");
+        endereco = new Endereco("03315000", 215);
     }
 
     @After
@@ -51,7 +51,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_numero_esperado() {
-        String numero = "teste";
+        Integer numero = 128;
         endereco.setNumero(numero);
         assertThat(numero, is(endereco.getNumero()));
     }
@@ -70,9 +70,9 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Endereco endereco1 = new Endereco("03315000", "215");
+        Endereco endereco1 = new Endereco("03315000", 215);
         assertThat(endereco.equals(endereco1), is(true));
-        endereco1 = new Endereco("03315000", "218");
+        endereco1 = new Endereco("03315000", 218);
         assertThat(endereco.equals(endereco1), is(false));
         endereco1 = null;
         assertThat(endereco.equals(endereco1), is(false));
@@ -82,7 +82,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        Endereco endereco1 = new Endereco("03315000", "215");
+        Endereco endereco1 = new Endereco("03315000", 215);
         assertThat(endereco.hashCode(), is(endereco1.hashCode()));
     }
 
