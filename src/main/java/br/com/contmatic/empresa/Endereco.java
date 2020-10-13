@@ -18,8 +18,8 @@ public class Endereco {
     private String logradouro;
 
     public Endereco(String cep, Integer numero){
-        setCep(cep);
-        setNumero(numero);
+        this.setCep(cep);
+        this.setNumero(numero);
     }
 
     public String getPais() {
@@ -84,6 +84,22 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Endereco endereco = (Endereco) o;
+        return new org.apache.commons.lang3.builder.EqualsBuilder().append(numero, endereco.numero).append(cep, endereco.cep).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cep, numero);
+    }
+
     @Override
     public String toString() {
         return "Endereco{" +
@@ -94,22 +110,5 @@ public class Endereco {
                 ", numero='" + numero + '\'' +
                 ", logradouro='" + logradouro + '\'' +
                 '}';
-    }
-
-    @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        Endereco endereco = (Endereco) o;
-
-        return new org.apache.commons.lang3.builder.EqualsBuilder().append(numero, endereco.numero).append(cep, endereco.cep).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cep, numero);
     }
 }

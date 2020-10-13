@@ -24,45 +24,60 @@ public final class CnpjValidator {
     }
 
     private static void validarCnpjComDigitosVerificadores(String cnpj){
-        int primeiroDigitoVerificador =
-                ((int)cnpj.charAt(0) - 48) * 5 +
-                        ((int)cnpj.charAt(1) - 48) * 4 +
-                        ((int)cnpj.charAt(2) - 48) * 3 +
-                        ((int)cnpj.charAt(3) - 48) * 2 +
-                        ((int)cnpj.charAt(4) - 48) * 9 +
-                        ((int)cnpj.charAt(5) - 48) * 8 +
-                        ((int)cnpj.charAt(6) - 48) * 7 +
-                        ((int)cnpj.charAt(7) - 48) * 6 +
-                        ((int)cnpj.charAt(8) - 48) * 5 +
-                        ((int)cnpj.charAt(9) - 48) * 4 +
-                        ((int)cnpj.charAt(10) - 48) * 3 +
-                        ((int)cnpj.charAt(11) - 48) * 2;
-        if (primeiroDigitoVerificador % 11 <2){
+        int primeiroDigitoVerificador = getPrimeiroDigitoVerificador(cnpj);
+        primeiroDigitoVerificador = validarDigitoVerificador(primeiroDigitoVerificador);
+        int segundoDigitoVerificador = getSegundoDigitoVerificador(cnpj);
+        segundoDigitoVerificador = validarDigitoVerificador(segundoDigitoVerificador);
+        validarCnpj(cnpj, primeiroDigitoVerificador, segundoDigitoVerificador);
+    }
+
+    private static void validarCnpj(String cnpj, int primeiroDigitoVerificador, int segundoDigitoVerificador) {
+        if (primeiroDigitoVerificador != (int) cnpj.charAt(12) - 48 && segundoDigitoVerificador != (int) cnpj.charAt(13) - 48){
+            throw new IllegalStateException("O cnpj informado é inválido. Verifique se o mesmo está correto.");
+        }
+    }
+
+    private static int getSegundoDigitoVerificador(String cnpj) {
+        int segundoDigitoVerificador =
+                ((int) cnpj.charAt(0) - 48) * 6 +
+                        ((int) cnpj.charAt(1) - 48) * 5 +
+                        ((int) cnpj.charAt(2) - 48) * 4 +
+                        ((int) cnpj.charAt(3) - 48) * 3 +
+                        ((int) cnpj.charAt(4) - 48) * 2 +
+                        ((int) cnpj.charAt(5) - 48) * 9 +
+                        ((int) cnpj.charAt(6) - 48) * 8 +
+                        ((int) cnpj.charAt(7) - 48) * 7 +
+                        ((int) cnpj.charAt(8) - 48) * 6 +
+                        ((int) cnpj.charAt(9) - 48) * 5 +
+                        ((int) cnpj.charAt(10) - 48) * 4 +
+                        ((int) cnpj.charAt(11) - 48) * 3 +
+                        ((int) cnpj.charAt(12) - 48) * 2;
+        return segundoDigitoVerificador;
+    }
+
+    private static int validarDigitoVerificador(int primeiroDigitoVerificador) {
+        if (primeiroDigitoVerificador % 11 < 2) {
             primeiroDigitoVerificador = 0;
         } else {
             primeiroDigitoVerificador = 11 - primeiroDigitoVerificador % 11;
         }
-        int segundoDigitoVerificador =
-                ((int)cnpj.charAt(0) - 48) * 6 +
-                        ((int)cnpj.charAt(1) - 48) * 5 +
-                        ((int)cnpj.charAt(2) - 48) * 4 +
-                        ((int)cnpj.charAt(3) - 48) * 3 +
-                        ((int)cnpj.charAt(4) - 48) * 2 +
-                        ((int)cnpj.charAt(5) - 48) * 9 +
-                        ((int)cnpj.charAt(6) - 48) * 8 +
-                        ((int)cnpj.charAt(7) - 48) * 7 +
-                        ((int)cnpj.charAt(8) - 48) * 6 +
-                        ((int)cnpj.charAt(9) - 48) * 5 +
-                        ((int)cnpj.charAt(10) - 48) * 4 +
-                        ((int)cnpj.charAt(11) - 48) * 3 +
-                        ((int)cnpj.charAt(12) - 48) * 2;
-        if (segundoDigitoVerificador % 11 <2){
-            segundoDigitoVerificador = 0;
-        } else {
-            segundoDigitoVerificador = 11 - segundoDigitoVerificador % 11;
-        }
-        if (primeiroDigitoVerificador != (int)cnpj.charAt(12) - 48 && segundoDigitoVerificador != (int)cnpj.charAt(13) - 48){
-            throw new IllegalStateException("O cnpj informado é inválido. Verifique se o mesmo está correto.");
-        }
+        return primeiroDigitoVerificador;
+    }
+
+    private static int getPrimeiroDigitoVerificador(String cnpj) {
+        int primeiroDigitoVerificador =
+                ((int) cnpj.charAt(0) - 48) * 5 +
+                        ((int) cnpj.charAt(1) - 48) * 4 +
+                        ((int) cnpj.charAt(2) - 48) * 3 +
+                        ((int) cnpj.charAt(3) - 48) * 2 +
+                        ((int) cnpj.charAt(4) - 48) * 9 +
+                        ((int) cnpj.charAt(5) - 48) * 8 +
+                        ((int) cnpj.charAt(6) - 48) * 7 +
+                        ((int) cnpj.charAt(7) - 48) * 6 +
+                        ((int) cnpj.charAt(8) - 48) * 5 +
+                        ((int) cnpj.charAt(9) - 48) * 4 +
+                        ((int) cnpj.charAt(10) - 48) * 3 +
+                        ((int) cnpj.charAt(11) - 48) * 2;
+        return primeiroDigitoVerificador;
     }
 }

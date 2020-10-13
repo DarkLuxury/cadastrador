@@ -25,39 +25,54 @@ public final class CpfValidator {
     }
 
     private static void validarCpfComDigitosVerificadores(String cpf){
-        int primeiroDigitoVerificador =
-                ((int)cpf.charAt(0) - 48) * 10 +
-                        ((int)cpf.charAt(1) - 48) * 9 +
-                        ((int)cpf.charAt(2) - 48) * 8 +
-                        ((int)cpf.charAt(3) - 48) * 7 +
-                        ((int)cpf.charAt(4) - 48) * 6 +
-                        ((int)cpf.charAt(5) - 48) * 5 +
-                        ((int)cpf.charAt(6) - 48) * 4 +
-                        ((int)cpf.charAt(7) - 48) * 3 +
-                        ((int)cpf.charAt(8) - 48) * 2;
-        if (11 - primeiroDigitoVerificador % 11 > 9){
+        int primeiroDigitoVerificador = getPrimeiroDigitoVerificador(cpf);
+        primeiroDigitoVerificador = validarDigitoVerificador(primeiroDigitoVerificador);
+        int segundoDigitoVerificador = getSegundoDigitoVerificador(cpf);
+        segundoDigitoVerificador = validarDigitoVerificador(segundoDigitoVerificador);
+        validarCpf(cpf, primeiroDigitoVerificador, segundoDigitoVerificador);
+    }
+
+    private static void validarCpf(String cpf, int primeiroDigitoVerificador, int segundoDigitoVerificador) {
+        if (primeiroDigitoVerificador != (int) cpf.charAt(9) - 48 && segundoDigitoVerificador != (int) cpf.charAt(10) - 48){
+            throw new IllegalStateException("O cpf informado é inválido. Verifique se o mesmo está correto.");
+        }
+    }
+
+    private static int getSegundoDigitoVerificador(String cpf) {
+        int segundoDigitoVerificador =
+                ((int) cpf.charAt(0) - 48) * 11 +
+                        ((int) cpf.charAt(1) - 48) * 10 +
+                        ((int) cpf.charAt(2) - 48) * 9 +
+                        ((int) cpf.charAt(3) - 48) * 8 +
+                        ((int) cpf.charAt(4) - 48) * 7 +
+                        ((int) cpf.charAt(5) - 48) * 6 +
+                        ((int) cpf.charAt(6) - 48) * 5 +
+                        ((int) cpf.charAt(7) - 48) * 4 +
+                        ((int) cpf.charAt(8) - 48) * 3 +
+                        ((int) cpf.charAt(9) - 48) * 2;
+        return segundoDigitoVerificador;
+    }
+
+    private static int validarDigitoVerificador(int primeiroDigitoVerificador) {
+        if (11 - primeiroDigitoVerificador % 11 > 9) {
             primeiroDigitoVerificador = 0;
         } else {
             primeiroDigitoVerificador = 11 - primeiroDigitoVerificador % 11;
         }
-        int segundoDigitoVerificador =
-                ((int)cpf.charAt(0) - 48) * 11 +
-                        ((int)cpf.charAt(1) - 48) * 10 +
-                        ((int)cpf.charAt(2) - 48) * 9 +
-                        ((int)cpf.charAt(3) - 48) * 8 +
-                        ((int)cpf.charAt(4) - 48) * 7 +
-                        ((int)cpf.charAt(5) - 48) * 6 +
-                        ((int)cpf.charAt(6) - 48) * 5 +
-                        ((int)cpf.charAt(7) - 48) * 4 +
-                        ((int)cpf.charAt(8) - 48) * 3 +
-                        ((int)cpf.charAt(9) - 48) * 2;
-        if (11 - segundoDigitoVerificador % 11 > 9){
-            segundoDigitoVerificador = 0;
-        } else {
-            segundoDigitoVerificador = 11 - segundoDigitoVerificador % 11;
-        }
-        if (primeiroDigitoVerificador != (int)cpf.charAt(9) - 48 && segundoDigitoVerificador != (int)cpf.charAt(10) - 48){
-            throw new IllegalStateException("O cpf informado é inválido. Verifique se o mesmo está correto.");
-        }
+        return primeiroDigitoVerificador;
+    }
+
+    private static int getPrimeiroDigitoVerificador(String cpf) {
+        int primeiroDigitoVerificador =
+                ((int) cpf.charAt(0) - 48) * 10 +
+                        ((int) cpf.charAt(1) - 48) * 9 +
+                        ((int) cpf.charAt(2) - 48) * 8 +
+                        ((int) cpf.charAt(3) - 48) * 7 +
+                        ((int) cpf.charAt(4) - 48) * 6 +
+                        ((int) cpf.charAt(5) - 48) * 5 +
+                        ((int) cpf.charAt(6) - 48) * 4 +
+                        ((int) cpf.charAt(7) - 48) * 3 +
+                        ((int) cpf.charAt(8) - 48) * 2;
+        return primeiroDigitoVerificador;
     }
 }

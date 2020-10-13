@@ -121,11 +121,6 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    @Override public String toString() {
-        return "Pessoa{" + "nome='" + nome + '\'' + ", cpf='" + cpf + '\'' + ", rg='" + rg + '\'' + ", ufNasc='" + ufNasc + '\'' + ", cidadeNasc='" + cidadeNasc + '\'' + ", nomeMae='" + nomeMae +
-                '\'' + ", sexo='" + sexo + '\'' + ", idade=" + idade + ", endereco=" + endereco + '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -141,6 +136,11 @@ public class Pessoa {
     @Override
     public int hashCode() {
         return Objects.hash(cpf);
+    }
+
+    @Override public String toString() {
+        return "Pessoa{" + "nome='" + nome + '\'' + ", cpf='" + cpf + '\'' + ", rg='" + rg + '\'' + ", ufNasc='" + ufNasc + '\'' + ", cidadeNasc='" + cidadeNasc + '\'' + ", nomeMae='" + nomeMae +
+                '\'' + ", sexo='" + sexo + '\'' + ", idade=" + idade + ", endereco=" + endereco + '}';
     }
 
 }

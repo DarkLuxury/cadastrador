@@ -30,7 +30,7 @@ public class Empresa {
     private List <Pessoa> funcionarios = new ArrayList<>();
     
     public Empresa(String cnpj) {
-		setCnpj(cnpj);
+		this.setCnpj(cnpj);
 	}
 
     public String getCnpj() {
@@ -135,13 +135,6 @@ public class Empresa {
     }
 
     @Override
-    public String toString() {
-        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", enderecos=" + enderecos +
-                ", funcionarios=" + funcionarios + ", valuation=" + valorEmpresa + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
-                '\'' + '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -156,5 +149,12 @@ public class Empresa {
     @Override
     public int hashCode() {
         return Objects.hash(cnpj);
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", enderecos=" + enderecos +
+                ", funcionarios=" + funcionarios + ", valuation=" + valorEmpresa + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
+                '\'' + '}';
     }
 }
