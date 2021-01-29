@@ -1,11 +1,10 @@
 package br.com.contmatic.empresa.fixturefactorytemplates;
 
-import br.com.contmatic.empresa.Endereco;
 import br.com.contmatic.empresa.Pessoa;
 import br.com.contmatic.empresa.Telefone;
+import br.com.contmatic.empresa.endereco.Endereco;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
-import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class PessoaTemplateLoader implements TemplateLoader {

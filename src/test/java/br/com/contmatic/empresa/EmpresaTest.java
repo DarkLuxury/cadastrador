@@ -1,18 +1,14 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Endereco;
+import br.com.contmatic.empresa.util.Validation;
 import br.com.six2six.fixturefactory.Fixture;
-import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import org.joda.time.DateTime;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
@@ -22,11 +18,17 @@ import static org.junit.Assert.*;
 public class EmpresaTest {
 
     private Endereco endereco;
+
     private Empresa empresa;
+
     private Telefone telefone;
-    private Empresa empresa1;
+
     private Pessoa pessoa;
-    private List<Pessoa> funcionarios;
+
+    private HashSet<Pessoa> funcionarios;
+
+    private HashSet<Endereco> enderecos;
+
     private Validation validation;
 
     @Before
@@ -34,17 +36,18 @@ public class EmpresaTest {
         FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
         validation = new Validation();
         endereco = Fixture.from(Endereco.class).gimme("endereco");
+        enderecos.add(endereco);
         pessoa = Fixture.from(Pessoa.class).gimme("pessoa");
+        funcionarios.add(pessoa);
         telefone = Fixture.from(Telefone.class).gimme("telefone");
         empresa = Fixture.from(Empresa.class).gimme("empresa");
-        empresa1 = Fixture.from(Empresa.class).gimme("empresa1");
+        empresa = Fixture.from(Empresa.class).gimme("empresa1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
         empresa = null;
-        empresa1 = null;
         pessoa = null;
         validation = null;
     }
@@ -56,7 +59,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_constructor_esperado() {
-        Empresa emp = new Empresa("58119371000177", "Softmatic phoenix", "medio/grande", endereco, "Contmatic phoenix", 12500000.0, "privado", false, "terciario", "www.contmatic.com.br");
+        Empresa emp = new Empresa("58119371000177", "Softmatic phoenix", "medio/grande", enderecos, "Contmatic phoenix", 12500000.0, "privado", false, "terciario", "www.contmatic.com.br", funcionarios);
         assertThat(emp, is(empresa));
     }
 
@@ -97,9 +100,10 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_endereco_esperado() {
-        Endereco enderecoTeste = endereco;
-        empresa.setEndereco(enderecoTeste);
-        assertThat(enderecoTeste, is(empresa.getEndereco()));
+        Set<Endereco> enderecos = new HashSet<Endereco>();
+        enderecos.add(endereco);
+        empresa.setEnderecos(enderecos);
+        assertThat(enderecos, is(empresa.getEnderecos()));
     }
 
     @Test
@@ -168,16 +172,16 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        assertThat(empresa.equals(empresa1), is(true));
-        empresa1 = null;
-        assertThat(empresa.equals(empresa1), is(false));
-        empresa1 = empresa;
-        assertThat(empresa.equals(empresa1), is(true));
+        assertThat(empresa.equals(empresa), is(true));
+        empresa = null;
+        assertThat(empresa.equals(empresa), is(false));
+        empresa = empresa;
+        assertThat(empresa.equals(empresa), is(true));
     }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        assertThat(empresa.hashCode(), is(empresa1.hashCode()));
+        assertThat(empresa.hashCode(), is(empresa.hashCode()));
     }
 
     @Test

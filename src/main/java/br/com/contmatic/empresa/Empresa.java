@@ -1,10 +1,10 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Endereco;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import br.com.caelum.stella.bean.validation.*;
 import org.hibernate.validator.constraints.URL;
@@ -14,59 +14,74 @@ import java.util.*;
 import org.joda.time.*;
 
 public class Empresa {
+
     @CNPJ
     private String cnpj;
+
     @URL
     private String site;
+
     @NotBlank
     @Pattern(regexp = "[a-zA-Z]+")
     private String razaoSocial;
+
     @NotBlank
     @Pattern(regexp = "[a-zA-Z\\s]+")
     private String nomeFantasia;
+
     @NotBlank
     @Pattern(regexp = "[a-zA-Z]+")
     private String tamanho;
-    @Valid
-    private Endereco endereco;
-    @NotNull
-    private List<Pessoa> funcionarios;
+
     @Min(1)
     private double valuation;
+
     @Pattern(regexp = "[a-zA-Z]+")
     private String titularidadeCapital;
+
     @NotNull
     private Boolean capitalAberto;
+
     @Pattern(regexp = "[a-zA-Z]+")
     private String setor;
+
+    @NotNull
     @Future
     private DateTime dataCadastro;
 
+    @NotNull
     private Telefone telefone;
+
+    @NotNull
     private Set<Telefone> telefones;
+
+    @NotNull
     private Set<Endereco> enderecos;
+
+    @NotNull
+    private Set<Pessoa> funcionarios;
 
     @Null
     private String nula;
 
     public Empresa() {
-    };
+        this.dataCadastro = new DateTime();
+    }
 
-    public Empresa(String cnpj, String razaoSocial, String tamanho, Endereco endereco, String nomeFantasia, double valuation, String titularidadeCapital, Boolean capitalAberto, String setor, String site) {
+    public Empresa(String cnpj, String razaoSocial, String tamanho, Set<Endereco> enderecos, String nomeFantasia, double valuation, String titularidadeCapital, Boolean capitalAberto, String setor, String site, Set<Pessoa> funcionarios) {
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
         this.tamanho = tamanho;
-        this.endereco = endereco;
         this.nomeFantasia = nomeFantasia;
         this.valuation = valuation;
         this.titularidadeCapital = titularidadeCapital;
         this.capitalAberto = capitalAberto;
         this.setor = setor;
-        this.funcionarios = new ArrayList<>();
         this.site = site;
+        this.enderecos = enderecos;
+        this.funcionarios = funcionarios;
         this.dataCadastro = new DateTime();
-        enderecos = new HashSet<Endereco>();
-        telefones = new HashSet<Telefone>();
+        this.telefones = new HashSet<Telefone>();
     }
 
     public Set<Endereco> getEnderecos() {
@@ -109,14 +124,6 @@ public class Empresa {
         this.tamanho = tamanho;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public double getValuation() {
         return valuation;
     }
@@ -149,11 +156,11 @@ public class Empresa {
         this.setor = setor;
     }
 
-    public List<Pessoa> getFuncionarios() {
+    public Set<Pessoa> getFuncionarios() {
         return funcionarios;
     }
 
-    public void setFuncionarios(List<Pessoa> funcionarios) {
+    public void setFuncionarios(Set<Pessoa> funcionarios) {
         this.funcionarios = funcionarios;
     }
 
@@ -191,7 +198,7 @@ public class Empresa {
     
     @Override public String toString() {
         return new ToStringBuilder(this).append("cnpj", cnpj).append("site", site).append("razaoSocial", razaoSocial).append("nomeFantasia", nomeFantasia).append("tamanho", tamanho)
-                .append("endereco", endereco).append("funcionarios", funcionarios).append("valuation", valuation).append("titularidadeCapital", titularidadeCapital)
+                .append("funcionarios", funcionarios).append("valuation", valuation).append("titularidadeCapital", titularidadeCapital)
                 .append("capitalAberto", capitalAberto).append("setor", setor).append("dataCadastro", dataCadastro).append("telefone", telefone).append("telefones", telefones)
                 .append("enderecos", enderecos).toString();
     }

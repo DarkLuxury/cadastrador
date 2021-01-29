@@ -1,5 +1,6 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.util.TipoTelefoneType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -9,15 +10,19 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Telefone {
+
     @Size(min = 3, max = 5)
     @Pattern(regexp = "[+][0-9]+")
     private String ddi;
+
     @Size(min = 2, max = 3)
     @Pattern(regexp = "[0-9]+")
     private String ddd;
+
     @Size(min = 8, max = 9)
     @Pattern(regexp = "[0-9]+")
     private String numero;
+
     @NotNull
     private TipoTelefoneType tipo;
 

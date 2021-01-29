@@ -1,5 +1,10 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Cidade;
+import br.com.contmatic.empresa.endereco.Endereco;
+import br.com.contmatic.empresa.endereco.Uf;
+import br.com.contmatic.empresa.util.TipoEnderecoType;
+import br.com.contmatic.empresa.util.Validation;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import org.junit.*;
@@ -11,15 +16,20 @@ import static org.junit.Assert.*;
 
 public class EnderecoTest {
 
+    private Uf uf;
+    private Cidade cidade;
     private Endereco endereco;
     private Endereco endereco1;
     private Validation validation;
-    private TipoEnderecoType tipo = TipoEnderecoType.CASA;
+    private TipoEnderecoType tipo;
 
     @Before
     public void inicializacao() {
         FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
         validation = new Validation();
+        tipo = TipoEnderecoType.CASA;
+        uf = Fixture.from(Uf.class).gimme("uf");
+        cidade = Fixture.from(Cidade.class).gimme("cidade");
         endereco = Fixture.from(Endereco.class).gimme("endereco");
         endereco1 = Fixture.from(Endereco.class).gimme("endereco1");
     }
@@ -38,29 +48,29 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_constructor_esperado() {
-        Endereco end = new Endereco("Rua dos anjos", "129", "São Paulo", "SP", "07075170", "Brasil", tipo);
+        Endereco end = new Endereco("07075170", 129, "Rua dos anjos", "luiz.csilva", Fixture.from(Cidade.class).gimme("cidade"), tipo);
         assertThat(end, is(endereco));
     }
 
     @Test (timeout = 100)
     public void deve_retornar_pais_esperado() {
         String pais = "teste";
-        endereco.setPais(pais);
-        assertThat(pais, is(endereco.getPais()));
+        uf.setPais(pais);
+        assertThat(pais, is(uf.getPais()));
     }
 
     @Test
     public void deve_retornar_uf_esperada() {
-        String uf = "teste";
-        endereco.setUf(uf);
-        assertThat(uf, is(endereco.getUf()));
+        String ufTeste = "teste";
+        uf.setUf(ufTeste);
+        assertThat(ufTeste, is(uf.getUf()));
     }
 
     @Test
     public void deve_retornar_cidade_esperada() {
-        String cidade = "teste";
-        endereco.setCidade(cidade);
-        assertThat(cidade, is(endereco.getCidade()));
+        String cidadeTeste = "teste";
+        cidade.setCidade(cidadeTeste);
+        assertThat(cidadeTeste, is(cidade.getCidade()));
     }
 
     @Test
@@ -72,7 +82,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_numero_esperado() {
-        String numero = "teste";
+        Integer numero = 30;
         endereco.setNumero(numero);
         assertThat(numero, is(endereco.getNumero()));
     }

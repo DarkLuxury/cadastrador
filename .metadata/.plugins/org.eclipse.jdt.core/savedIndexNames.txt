@@ -1,0 +1,6 @@
+INDEX VERSION 1.131+/home/darkluxury/Documentos/GitHub/cadastrador/.metadata/.plugins/org.eclipse.jdt.core
+560255560.index
+646308851.index
+544702992.index
+801784449.index
+537940090.index
