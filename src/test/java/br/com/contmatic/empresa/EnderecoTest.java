@@ -1,9 +1,5 @@
 package br.com.contmatic.empresa;
 
-import br.com.contmatic.empresa.endereco.Cidade;
-import br.com.contmatic.empresa.endereco.Endereco;
-import br.com.contmatic.empresa.endereco.Uf;
-import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -15,19 +11,28 @@ public class EnderecoTest {
 
     public Endereco endereco;
 
-    public Uf uf;
-
-    public Cidade cidade;
-
     @Before
     public void inicializacao() {
-        endereco = new Endereco("03315000", 215, "luiz");
-        uf = new Uf("sp", "Brasil");
-        cidade = new Cidade("são paulo", uf);
+        endereco = new Endereco("03315000", 215);
+    }
+
+    @Test (timeout = 100)
+    public void deve_retornar_pais_esperado() {
+        String pais = "Brasil";
+        endereco.setPais(pais);
+        assertThat(pais, is(endereco.getPais()));
+    }
+
+    @Test
+    public void deve_retornar_uf_esperada() {
+        String uf = "sp";
+        endereco.setUf(uf);
+        assertThat(uf, is(endereco.getUf()));
     }
 
     @Test
     public void deve_retornar_cidade_esperada() {
+        String cidade = "São Paulo";
         endereco.setCidade(cidade);
         assertThat(cidade, is(endereco.getCidade()));
     }
@@ -59,24 +64,10 @@ public class EnderecoTest {
     }
 
     @Test
-    public void deve_retornar_usuariocriador_esperado() {
-        String usuarioCriador = "luiz";
-        endereco.setUsuarioCriador(usuarioCriador);
-        assertThat(usuarioCriador, is(endereco.getUsuarioCriador()));
-    }
-
-    @Test
-    public void deve_retornar_data_criacao_esperada() {
-        DateTime data = new DateTime();
-        endereco.setDataCriacao(data);
-        assertThat(data, is(endereco.getDataCriação()));
-    }
-
-    @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Endereco endereco1 = new Endereco("03315000", 215, "luiz");
+        Endereco endereco1 = new Endereco("03315000", 215);
         assertThat(endereco.equals(endereco1), is(true));
-        endereco1 = new Endereco("03315000", 218, "luiz");
+        endereco1 = new Endereco("03315000", 218);
         assertThat(endereco.equals(endereco1), is(false));
         endereco1 = null;
         assertThat(endereco.equals(endereco1), is(false));
@@ -86,7 +77,7 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        Endereco endereco1 = new Endereco("03315000", 215, "luiz");
+        Endereco endereco1 = new Endereco("03315000", 215);
         assertThat(endereco.hashCode(), is(endereco1.hashCode()));
     }
 

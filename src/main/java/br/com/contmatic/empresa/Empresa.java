@@ -1,8 +1,5 @@
 package br.com.contmatic.empresa;
 
-import br.com.contmatic.empresa.endereco.Endereco;
-import org.joda.time.DateTime;
-
 import static br.com.contmatic.util.Validator.*;
 import static br.com.contmatic.util.CnpjValidator.*;
 
@@ -26,20 +23,14 @@ public class Empresa {
     
     private String setor;
 
-    private String usuarioCriador;
-
-    private DateTime dataCriacao;
-
     private double valorEmpresa;
 
     private List <Endereco> enderecos = new ArrayList<>();
 
     private List <Pessoa> funcionarios = new ArrayList<>();
     
-    public Empresa(String cnpj, String usuarioCriador) {
+    public Empresa(String cnpj) {
 		this.setCnpj(cnpj);
-		this.setUsuarioCriador(usuarioCriador);
-		this.dataCriacao = new DateTime();
 	}
 
     public String getCnpj() {
@@ -143,26 +134,6 @@ public class Empresa {
         this.funcionarios = funcionarios;
     }
 
-    public String getUsuarioCriador() {
-        return usuarioCriador;
-    }
-
-    public void setUsuarioCriador(String usuarioCriador) {
-        naoNulo(usuarioCriador, "usuário criador");
-        stringContemSomenteLetras(usuarioCriador, "usuario criador");
-        tamanhoStringMinMax(usuarioCriador, "usuario criador", 2, 32);
-        this.usuarioCriador = usuarioCriador;
-    }
-
-    public DateTime getDataCriação() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(DateTime dataCriacao) {
-        naoNulo(dataCriacao, "data de criação");
-        this.dataCriacao = dataCriacao;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -182,8 +153,8 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", titularidadeCapital='" +
-                titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor + '\'' + ", usuarioCriador='" + usuarioCriador + '\'' + ", dataCriacao=" + dataCriacao +
-                ", valorEmpresa=" + valorEmpresa + ", enderecos=" + enderecos + ", funcionarios=" + funcionarios + '}';
+        return "Empresa{" + "cnpj='" + cnpj + '\'' + ", razaoSocial='" + razaoSocial + '\'' + ", nomeFantasia='" + nomeFantasia + '\'' + ", tamanho='" + tamanho + '\'' + ", enderecos=" + enderecos +
+                ", funcionarios=" + funcionarios + ", valuation=" + valorEmpresa + ", titularidadeCapital='" + titularidadeCapital + '\'' + ", capitalAberto=" + capitalAberto + ", setor='" + setor +
+                '\'' + '}';
     }
 }
