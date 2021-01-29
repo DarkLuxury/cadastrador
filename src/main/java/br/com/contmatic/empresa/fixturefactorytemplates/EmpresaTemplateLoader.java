@@ -1,13 +1,13 @@
 package br.com.contmatic.empresa.fixturefactorytemplates;
 
+import static br.com.contmatic.empresa.util.TipoTelefoneType.MOVEL;
+
 import br.com.contmatic.empresa.Empresa;
 import br.com.contmatic.empresa.Pessoa;
 import br.com.contmatic.empresa.Telefone;
 import br.com.contmatic.empresa.endereco.Endereco;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
-import br.com.six2six.fixturefactory.function.AtomicFunction;
-import br.com.six2six.fixturefactory.function.impl.AssociationFunctionImpl;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 import java.util.ArrayList;
@@ -18,7 +18,11 @@ import java.util.Set;
 public class EmpresaTemplateLoader implements TemplateLoader {
     @Override public void load() {
         List<Pessoa> funcionarios = new ArrayList<>();
+        funcionarios.add(new Pessoa());
         Set<Endereco> enderecos = new HashSet<Endereco>();
+        enderecos.add(new Endereco());
+        Set<Telefone> telefones = new HashSet<Telefone>();
+        telefones.add(new Telefone());
 
         Fixture.of(Empresa.class).addTemplate("empresa", new Rule(){{
             add("cnpj", "58119371000177");
@@ -26,26 +30,13 @@ public class EmpresaTemplateLoader implements TemplateLoader {
             add("razaoSocial", "ltda");
             add("nomeFantasia", "Contmatic phoenix");
             add("tamanho", "medio");
+            add("telefones", telefones);
             add("enderecos", enderecos);
             add("funcionarios", funcionarios);
             add("valuation", 12500000.0);
             add("titularidadeCapital", "privado");
             add("capitalAberto", false);
             add("setor", "terciario");
-            add("telefone", one(Telefone.class, "telefone"));
-        }});
-
-        Fixture.of(Empresa.class).addTemplate("empresa1", new Rule(){{
-            add("cnpj", "58119371000177");
-            add("razaoSocial", "Softmatic phoenix1");
-            add("nomeFantasia", "Contmatic phoenix1");
-            add("tamanho", "medio/grande1");
-            add("endereco", one(Endereco.class, "endereco"));
-            add("funcionarios", funcionarios);
-            add("valuation", 125000000.0);
-            add("titularidadeCapital", "privado1");
-            add("capitalAberto", true);
-            add("setor", "terciario1");
             add("telefone", one(Telefone.class, "telefone"));
         }});
     }

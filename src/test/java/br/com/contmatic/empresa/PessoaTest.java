@@ -19,7 +19,6 @@ public class PessoaTest {
     private Endereco endereco;
     private Telefone telefone;
     private Pessoa pessoa;
-    private Pessoa pessoa1;
     private Validation validation;
 
     @Before
@@ -29,14 +28,12 @@ public class PessoaTest {
         endereco = Fixture.from(Endereco.class).gimme("endereco");
         telefone = Fixture.from(Telefone.class).gimme("telefone");
         pessoa = Fixture.from(Pessoa.class).gimme("pessoa");
-        pessoa1 = Fixture.from(Pessoa.class).gimme("pessoa1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
         pessoa = null;
-        pessoa1 = null;
         validation = null;
     }
 
@@ -136,16 +133,12 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        assertThat(pessoa.equals(pessoa1), is(true));
-        pessoa1 = null;
-        assertThat(pessoa.equals(pessoa1), is(false));
-        pessoa1 = pessoa;
-        assertThat(pessoa.equals(pessoa1), is(true));
+        assertThat(pessoa.equals(pessoa), is(true));
     }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        assertThat(pessoa.hashCode(), is(pessoa1.hashCode()));
+        assertThat(pessoa.hashCode(), is(pessoa.hashCode()));
     }
 
     @Test

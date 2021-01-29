@@ -16,12 +16,5 @@ public class TelefoneTemplateLoader implements TemplateLoader {
             add("numero", "930493749");
             add("tipo", TipoTelefoneType.FIXO);
         }});
-
-        Fixture.of(Telefone.class).addTemplate("telefone1", new Rule(){{
-            add("ddi", "+55");
-            add("ddd", "11");
-            add("numero", "930493749");
-            add("tipo", TipoTelefoneType.MOVEL);
-        }});
     }
 }

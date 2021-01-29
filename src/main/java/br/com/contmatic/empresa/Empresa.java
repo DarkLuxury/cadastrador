@@ -46,19 +46,18 @@ public class Empresa {
     private String setor;
 
     @NotNull
-    @Future
     private DateTime dataCadastro;
 
     @NotNull
     private Telefone telefone;
 
-    @NotNull
+    @NotEmpty
     private Set<Telefone> telefones;
 
-    @NotNull
+    @NotEmpty
     private Set<Endereco> enderecos;
 
-    @NotNull
+    @NotEmpty
     private Set<Pessoa> funcionarios;
 
     @Null

@@ -19,7 +19,6 @@ public class EnderecoTest {
     private Uf uf;
     private Cidade cidade;
     private Endereco endereco;
-    private Endereco endereco1;
     private Validation validation;
     private TipoEnderecoType tipo;
 
@@ -31,13 +30,11 @@ public class EnderecoTest {
         uf = Fixture.from(Uf.class).gimme("uf");
         cidade = Fixture.from(Cidade.class).gimme("cidade");
         endereco = Fixture.from(Endereco.class).gimme("endereco");
-        endereco1 = Fixture.from(Endereco.class).gimme("endereco1");
     }
 
     @After
     public void finalizacao() {
         endereco = null;
-        endereco1 = null;
         validation = null;
     }
 
@@ -108,16 +105,12 @@ public class EnderecoTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        assertThat(endereco.equals(endereco1), is(true));
-        endereco1 = null;
-        assertThat(endereco.equals(endereco1), is(false));
-        endereco1 = endereco;
-        assertThat(endereco.equals(endereco1), is(true));
+        assertThat(endereco.equals(endereco), is(true));
     }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hashcode() {
-        assertThat(endereco.hashCode(), is(endereco1.hashCode()));
+        assertThat(endereco.hashCode(), is(endereco.hashCode()));
     }
 
     @Test

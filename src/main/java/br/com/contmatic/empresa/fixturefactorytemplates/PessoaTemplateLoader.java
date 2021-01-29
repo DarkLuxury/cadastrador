@@ -23,18 +23,5 @@ public class PessoaTemplateLoader implements TemplateLoader {
             add("endereco", one(Endereco.class, "endereco"));
             add("telefone", one(Telefone.class, "telefone"));
         }});
-
-        Fixture.of(Pessoa.class).addTemplate("pessoa1", new Rule(){{
-            add("nome", "luiz1");
-            add("cpf", "53962962590");
-            add("rg", "5612723591");
-            add("ufNasc", "sp1");
-            add("cidadeNasc", "Sao Paulo1");
-            add("nomeMae", "Roberta1");
-            add("sexo", "M1");
-            add("idade", 211);
-            add("endereco", one(Endereco.class, "endereco"));
-            add("telefone", one(Telefone.class, "telefone"));
-        }});
     }
 }

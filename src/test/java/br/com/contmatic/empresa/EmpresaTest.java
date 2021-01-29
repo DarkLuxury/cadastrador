@@ -1,6 +1,8 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Cidade;
 import br.com.contmatic.empresa.endereco.Endereco;
+import br.com.contmatic.empresa.endereco.Uf;
 import br.com.contmatic.empresa.util.Validation;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -23,11 +25,15 @@ public class EmpresaTest {
 
     private Telefone telefone;
 
+    private Uf uf;
+
+    private Cidade cidade;
+
     private Pessoa pessoa;
 
-    private HashSet<Pessoa> funcionarios;
+    private Set<Pessoa> funcionarios;
 
-    private HashSet<Endereco> enderecos;
+    private Set<Endereco> enderecos;
 
     private Validation validation;
 
@@ -36,12 +42,13 @@ public class EmpresaTest {
         FixtureFactoryLoader.loadTemplates("br.com.contmatic.empresa");
         validation = new Validation();
         endereco = Fixture.from(Endereco.class).gimme("endereco");
+        enderecos = new HashSet<Endereco>();
         enderecos.add(endereco);
         pessoa = Fixture.from(Pessoa.class).gimme("pessoa");
+        funcionarios = new HashSet<Pessoa>();
         funcionarios.add(pessoa);
         telefone = Fixture.from(Telefone.class).gimme("telefone");
         empresa = Fixture.from(Empresa.class).gimme("empresa");
-        empresa = Fixture.from(Empresa.class).gimme("empresa1");
     }
 
     @After
@@ -172,10 +179,6 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        assertThat(empresa.equals(empresa), is(true));
-        empresa = null;
-        assertThat(empresa.equals(empresa), is(false));
-        empresa = empresa;
         assertThat(empresa.equals(empresa), is(true));
     }
 

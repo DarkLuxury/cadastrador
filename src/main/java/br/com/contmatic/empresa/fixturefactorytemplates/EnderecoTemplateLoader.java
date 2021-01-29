@@ -19,14 +19,5 @@ public class EnderecoTemplateLoader implements TemplateLoader {
             add("usuarioCriador", "luiz c silva");
             add("tipo", TipoEnderecoType.CASA);
         }});
-
-        Fixture.of(Endereco.class).addTemplate("endereco1", new Rule(){{
-            add("cidade", one(Cidade.class, "cidade"));
-            add("cep", "07075170");
-            add("numero", 129);
-            add("logradouro", "Rua dos anjos1");
-            add("usuarioCriador", "luiz c silva");
-            add("tipo", TipoEnderecoType.CASA);
-        }});
     }
 }
