@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Endereco;
+import org.joda.time.DateTime;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -9,12 +11,13 @@ import static org.hamcrest.Matchers.is;
 public class PessoaTest {
 
     private Endereco endereco;
+
     private Pessoa pessoa;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("07075170", 215);
-        pessoa = new Pessoa("53558971000");
+        endereco = new Endereco("07075170", 215, "luiz");
+        pessoa = new Pessoa("53558971000", "luiz");
     }
 
     @Test
@@ -80,8 +83,22 @@ public class PessoaTest {
     }
 
     @Test
+    public void deve_retornar_usuariocriador_esperado() {
+        String usuarioCriador = "luiz";
+        pessoa.setUsuarioCriador(usuarioCriador);
+        assertThat(usuarioCriador, is(pessoa.getUsuarioCriador()));
+    }
+
+    @Test
+    public void deve_retornar_data_criacao_esperada() {
+        DateTime data = new DateTime();
+        pessoa.setDataCriacao(data);
+        assertThat(data, is(pessoa.getDataCriação()));
+    }
+
+    @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Pessoa pessoa1 = new Pessoa("53558971000");
+        Pessoa pessoa1 = new Pessoa("53558971000", "luiz");
         assertThat(pessoa.equals(pessoa1), is(true));
         pessoa1 = null;
         assertThat(pessoa.equals(pessoa1), is(false));
@@ -91,7 +108,7 @@ public class PessoaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Pessoa pessoa1 = new Pessoa("53558971000");
+        Pessoa pessoa1 = new Pessoa("53558971000", "luiz");
         assertThat(pessoa.hashCode(), is(pessoa1.hashCode()));
     }
 

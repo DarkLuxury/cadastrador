@@ -1,15 +1,11 @@
-package br.com.contmatic.empresa;
+package br.com.contmatic.empresa.endereco;
+
+import org.joda.time.DateTime;
 
 import static br.com.contmatic.util.Validator.*;
 import java.util.Objects;
 
 public class Endereco {
-
-    private String pais;
-
-    private String uf;
-
-    private String cidade;
 
     private String cep;
 
@@ -17,41 +13,25 @@ public class Endereco {
 
     private String logradouro;
 
-    public Endereco(String cep, Integer numero){
+    private String usuarioCriador;
+
+    private DateTime dataCriacao;
+
+    private Cidade cidade;
+
+    public Endereco(String cep, Integer numero, String usuarioCriador){
         this.setCep(cep);
         this.setNumero(numero);
+        this.setUsuarioCriador(usuarioCriador);
+        this.dataCriacao = new DateTime();
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        naoNulo(pais, "país");
-        tamanhoStringMinMax(pais, "país", 2,32);
-        stringContemSomenteLetrasEspacos(pais, "país");
-        this.pais = pais;
-    }
-
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        naoNulo(uf, "uf");
-        tamanhoStringIgual(uf, "uf", 2);
-        stringContemSomenteLetras(uf, "uf");
-        this.uf = uf;
-    }
-
-    public String getCidade() {
+    public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(Cidade cidade) {
         naoNulo(cidade, "cidade");
-        stringContemSomenteLetrasEspacos(cidade, "cidade");
-        tamanhoStringMinMax(cidade, "cidade", 2, 32);
         this.cidade = cidade;
     }
 
@@ -84,6 +64,26 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
+    public String getUsuarioCriador() {
+        return usuarioCriador;
+    }
+
+    public void setUsuarioCriador(String usuarioCriador) {
+        naoNulo(usuarioCriador, "usuário criador");
+        stringContemSomenteLetras(usuarioCriador, "usuario criador");
+        tamanhoStringMinMax(usuarioCriador, "usuario criador", 2, 32);
+        this.usuarioCriador = usuarioCriador;
+    }
+
+    public DateTime getDataCriação() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(DateTime dataCriacao) {
+        naoNulo(dataCriacao, "data de criação");
+        this.dataCriacao = dataCriacao;
+    }
+
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -103,8 +103,6 @@ public class Endereco {
     @Override
     public String toString() {
         return "Endereco{" +
-                "pais='" + pais + '\'' +
-                ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", cep='" + cep + '\'' +
                 ", numero='" + numero + '\'' +

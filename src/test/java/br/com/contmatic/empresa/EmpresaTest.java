@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Endereco;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -17,16 +19,20 @@ import static org.junit.Assert.assertThat;
 public class EmpresaTest {
 
     private Endereco endereco;
+
     private Empresa empresa;
+
     private Pessoa pessoa;
+
     private List<Pessoa> funcionarios;
+
     private List<Endereco> enderecos;
 
     @Before
     public void inicializacao() {
-        endereco = new Endereco("03315000", 215);
-        empresa = new Empresa("18688133000168");
-        pessoa = new Pessoa("53558971000");
+        endereco = new Endereco("03315000", 215, "luiz");
+        empresa = new Empresa("18688133000168", "luiz");
+        pessoa = new Pessoa("53558971000", "luiz");
         enderecos = new ArrayList<>();
         funcionarios = new ArrayList<>();
         funcionarios.add(pessoa);
@@ -101,10 +107,23 @@ public class EmpresaTest {
         assertThat(funcionarios, is(empresa.getFuncionarios()));
     }
 
+    @Test
+    public void deve_retornar_usuariocriador_esperado() {
+        String usuarioCriador = "luiz";
+        empresa.setUsuarioCriador(usuarioCriador);
+        assertThat(usuarioCriador, is(empresa.getUsuarioCriador()));
+    }
+
+    @Test
+    public void deve_retornar_data_criacao_esperada() {
+        DateTime data = new DateTime();
+        empresa.setDataCriacao(data);
+        assertThat(data, is(empresa.getDataCriação()));
+    }
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_equals() {
-        Empresa empresa1 = new Empresa("18688133000168");
+        Empresa empresa1 = new Empresa("18688133000168", "luiz");
         assertThat(empresa.equals(empresa1), is(true));
         empresa1 = null;
         assertThat(empresa.equals(empresa1), is(false));
@@ -114,7 +133,7 @@ public class EmpresaTest {
 
     @Test
     public void deve_retornar_verdadeiro_para_o_metodo_hascode() {
-        Empresa empresa1 = new Empresa("18688133000168");
+        Empresa empresa1 = new Empresa("18688133000168", "luiz");
         assertThat(empresa.hashCode(), is(empresa1.hashCode()));
     }
 

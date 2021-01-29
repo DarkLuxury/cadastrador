@@ -1,5 +1,8 @@
 package br.com.contmatic.empresa;
 
+import br.com.contmatic.empresa.endereco.Endereco;
+import org.joda.time.DateTime;
+
 import static br.com.contmatic.util.Validator.*;
 import static br.com.contmatic.util.CpfValidator.*;
 
@@ -25,8 +28,14 @@ public class Pessoa {
 
     private Endereco endereco;
 
-    public Pessoa(String cpf){
+    private String usuarioCriador;
+
+    private DateTime dataCriacao;
+
+    public Pessoa(String cpf, String usuarioCriador){
         setCpf(cpf);
+        this.setUsuarioCriador(usuarioCriador);
+        this.dataCriacao = new DateTime();
     }
 
     public String getNome() {
@@ -119,6 +128,26 @@ public class Pessoa {
     public void setEndereco(Endereco endereco) {
         naoNulo(endereco, "endereco");
         this.endereco = endereco;
+    }
+
+    public String getUsuarioCriador() {
+        return usuarioCriador;
+    }
+
+    public void setUsuarioCriador(String usuarioCriador) {
+        naoNulo(usuarioCriador, "usuário criador");
+        stringContemSomenteLetras(usuarioCriador, "usuario criador");
+        tamanhoStringMinMax(usuarioCriador, "usuario criador", 2, 32);
+        this.usuarioCriador = usuarioCriador;
+    }
+
+    public DateTime getDataCriação() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(DateTime dataCriacao) {
+        naoNulo(dataCriacao, "data de criação");
+        this.dataCriacao = dataCriacao;
     }
 
     @Override
